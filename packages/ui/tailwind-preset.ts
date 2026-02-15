@@ -115,36 +115,36 @@ const preset: Partial<Config> = {
 
         /* =====================================================================
          * BRAND COLORS
-         * Modern industrial palette with warm neutrals and orange accent.
+         * Futuristic palette with cool neutrals and cyan accent.
          * ===================================================================== */
 
-        orange: {
-          DEFAULT: 'var(--color-orange-500)',
-          50: 'var(--color-orange-50)',
-          100: 'var(--color-orange-100)',
-          200: 'var(--color-orange-200)',
-          300: 'var(--color-orange-300)',
-          400: 'var(--color-orange-400)',
-          500: 'var(--color-orange-500)',
-          600: 'var(--color-orange-600)',
-          700: 'var(--color-orange-700)',
-          800: 'var(--color-orange-800)',
-          900: 'var(--color-orange-900)',
-          950: 'var(--color-orange-950)',
+        cyan: {
+          DEFAULT: 'var(--color-cyan-500)',
+          50: 'var(--color-cyan-50)',
+          100: 'var(--color-cyan-100)',
+          200: 'var(--color-cyan-200)',
+          300: 'var(--color-cyan-300)',
+          400: 'var(--color-cyan-400)',
+          500: 'var(--color-cyan-500)',
+          600: 'var(--color-cyan-600)',
+          700: 'var(--color-cyan-700)',
+          800: 'var(--color-cyan-800)',
+          900: 'var(--color-cyan-900)',
+          950: 'var(--color-cyan-950)',
         },
-        warm: {
-          DEFAULT: 'var(--color-warm-500)',
-          50: 'var(--color-warm-50)',
-          100: 'var(--color-warm-100)',
-          200: 'var(--color-warm-200)',
-          300: 'var(--color-warm-300)',
-          400: 'var(--color-warm-400)',
-          500: 'var(--color-warm-500)',
-          600: 'var(--color-warm-600)',
-          700: 'var(--color-warm-700)',
-          800: 'var(--color-warm-800)',
-          900: 'var(--color-warm-900)',
-          950: 'var(--color-warm-950)',
+        neutral: {
+          DEFAULT: 'var(--color-neutral-500)',
+          50: 'var(--color-neutral-50)',
+          100: 'var(--color-neutral-100)',
+          200: 'var(--color-neutral-200)',
+          300: 'var(--color-neutral-300)',
+          400: 'var(--color-neutral-400)',
+          500: 'var(--color-neutral-500)',
+          600: 'var(--color-neutral-600)',
+          700: 'var(--color-neutral-700)',
+          800: 'var(--color-neutral-800)',
+          900: 'var(--color-neutral-900)',
+          950: 'var(--color-neutral-950)',
         },
 
         brand: {

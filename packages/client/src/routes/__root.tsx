@@ -5,9 +5,8 @@ import { lazy, Suspense } from 'react';
 import { config } from '@ssalka/common/config';
 import { Toaster } from '@ssalka/ui/components/toaster';
 
-import { queryClient, trpcReactQuery } from '@/lib/api';
+import { queryClient } from '@/lib/api';
 import { useInitTracking } from '@/lib/hooks/tracking';
-import { getUserActions } from '@/state/user';
 
 /** NOTE this module is not included in the production build - it is specifically excluded in `vite.config.ts` */
 const TanStackRouterDevtools = lazy(() =>
@@ -33,18 +32,5 @@ const Root: React.FC = () => {
 };
 
 export const Route = createRootRoute({
-  async beforeLoad() {
-    const user = await queryClient.ensureQueryData(
-      trpcReactQuery.user.getIfLoggedIn.queryOptions(),
-    );
-
-    if (user) {
-      queryClient.setQueryData(trpcReactQuery.user.get.queryKey(), user);
-      const { setUser } = getUserActions();
-      setUser(user);
-    }
-
-    return { user };
-  },
   component: Root,
 });
