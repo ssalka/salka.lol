@@ -3,10 +3,10 @@
 @config '../tailwind.config.ts';
 
 /* prettier-ignore */
-@source inline('bg-{red,orange,yellow,green,cyan,sky,blue,indigo,violet,purple,rose,slate,gray,stone}-{100,300,500}');
+@source inline('bg-{red,orange,yellow,green,cyan,sky,blue,indigo,violet,purple,rose,slate,gray,stone,magenta,acid,warm}-{50,100,200,300,400,500,600,700,800,900,950}');
 
 /* prettier-ignore */
-@source inline('{border,text}-{red,orange,yellow,green,cyan,sky,blue,indigo,violet,purple,rose,slate,gray,stone}-500');
+@source inline('{border,text}-{red,orange,yellow,green,cyan,sky,blue,indigo,violet,purple,rose,slate,gray,stone,magenta,acid,warm}-{50,100,200,300,400,500,600,700,800,900,950}');
 
 /* margin and padding - generates sizes 0-8 with increments of 1 */
 @source inline('{m,p}{,t,b,l,r,x,y}-{0..8..1}');
@@ -21,7 +21,7 @@
 }
 
 /* =============================================================================
- * SCI-FI UTILITIES
+ * BRUTALIST / INDUSTRIAL UTILITIES
  * ============================================================================= */
 
 @utility scanlines {
@@ -48,17 +48,125 @@
     0 0 30px hsl(185 100% 42% / 0.08);
 }
 
+@utility glow-magenta {
+  box-shadow:
+    0 0 15px hsl(330 100% 48% / 0.2),
+    0 0 30px hsl(330 100% 48% / 0.1);
+}
+
+@utility glow-acid {
+  box-shadow:
+    0 0 15px hsl(72 100% 42% / 0.2),
+    0 0 30px hsl(72 100% 42% / 0.1);
+}
+
 @utility text-glow {
   text-shadow:
     0 0 10px hsl(185 100% 42% / 0.4),
     0 0 30px hsl(185 100% 42% / 0.15);
 }
 
+@utility text-glow-magenta {
+  text-shadow:
+    0 0 10px hsl(330 100% 48% / 0.5),
+    0 0 40px hsl(330 100% 48% / 0.2);
+}
+
+@utility text-glow-cyan {
+  text-shadow:
+    0 0 10px hsl(185 100% 42% / 0.5),
+    0 0 40px hsl(185 100% 42% / 0.2);
+}
+
+@utility text-glow-acid {
+  text-shadow:
+    0 0 10px hsl(72 100% 42% / 0.5),
+    0 0 40px hsl(72 100% 42% / 0.2);
+}
+
+@utility noise-overlay {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+}
+
 @utility grid-overlay {
   background-image:
-    linear-gradient(hsl(210 10% 100% / 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(210 10% 100% / 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(hsl(28 10% 100% / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(28 10% 100% / 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+@utility crosshair {
+  position: relative;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 2;
+  }
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid hsl(330 100% 48% / 0.4);
+    border-left: 2px solid hsl(330 100% 48% / 0.4);
+  }
+  &::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid hsl(330 100% 48% / 0.4);
+    border-right: 2px solid hsl(330 100% 48% / 0.4);
+  }
+}
+
+@utility glitch-text {
+  position: relative;
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  &::before {
+    color: hsl(330 100% 48%);
+    clip-path: inset(0 0 65% 0);
+    animation:
+      glitch-css-1 4s infinite linear alternate-reverse,
+      glitch-fuzzy 6s infinite ease-in-out;
+  }
+  &::after {
+    color: hsl(185 100% 42%);
+    clip-path: inset(65% 0 0 0);
+    animation:
+      glitch-css-2 4s infinite linear alternate-reverse,
+      glitch-fuzzy 6s 0.8s infinite ease-in-out;
+  }
+}
+
+@utility vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+@utility brutal-border-t {
+  border-top: 3px solid;
+}
+
+@utility brutal-border-l {
+  border-left: 3px solid;
 }
 
 @utility blink-cursor {
@@ -75,5 +183,83 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes glitch-css-1 {
+  0%,
+  94% {
+    transform: translate(0);
+  }
+  95% {
+    transform: translate(-3px, 1px);
+  }
+  96% {
+    transform: translate(2px, -1px);
+  }
+  97% {
+    transform: translate(-1px, 2px);
+  }
+  98% {
+    transform: translate(3px, -2px);
+  }
+  99% {
+    transform: translate(-2px, 1px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-css-2 {
+  0%,
+  94% {
+    transform: translate(0);
+  }
+  95% {
+    transform: translate(3px, -1px);
+  }
+  96% {
+    transform: translate(-2px, 2px);
+  }
+  97% {
+    transform: translate(1px, -2px);
+  }
+  98% {
+    transform: translate(-3px, 1px);
+  }
+  99% {
+    transform: translate(2px, -1px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-fuzzy {
+  0%,
+  88% {
+    filter: blur(0px);
+  }
+  90% {
+    filter: blur(3px);
+  }
+  92% {
+    filter: blur(0px);
+  }
+  94% {
+    filter: blur(2px);
+  }
+  96%,
+  100% {
+    filter: blur(0px);
+  }
+}
+
+/* Disable CSS glitch animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text::before,
+  .glitch-text::after {
+    animation: none !important;
   }
 }

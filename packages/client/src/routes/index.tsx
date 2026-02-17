@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { AboutSection } from '@/components/home/AboutSection';
+import { GlitchControlPanel } from '@/components/home/GlitchControlPanel';
 import { HeroSection } from '@/components/home/HeroSection';
 import { LinksSection } from '@/components/home/LinksSection';
 import { Nav } from '@/components/home/Nav';
@@ -12,7 +13,7 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   return (
-    <div className="grid-overlay bg-background min-h-screen">
+    <div className="brutal noise-overlay grid-overlay bg-background min-h-screen">
       <Nav />
       <main>
         <HeroSection />
@@ -20,8 +21,24 @@ function HomePage() {
         <ProjectsSection />
         <LinksSection />
       </main>
-      <footer className="border-border/50 text-muted-foreground border-t px-6 py-8 text-center font-mono text-xs tracking-widest md:px-12">
-        salka.lol
+      <GlitchControlPanel />
+      <footer className="border-border/50 relative border-t px-6 py-10 md:px-12">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 font-mono text-xs tracking-widest md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <span className="text-magenta-500">37.7988°N</span>
+            <span className="text-muted-foreground">/</span>
+            <span className="text-cyan-400">122.4505°W</span>
+          </div>
+          <div className="text-muted-foreground flex items-center gap-4">
+            <span>
+              SYS:<span className="text-acid-500">NOMINAL</span>
+            </span>
+            <span className="text-muted-foreground/50">|</span>
+            <span>VER:2.0.0</span>
+            <span className="text-muted-foreground/50">|</span>
+            <span>SALKA.LOL</span>
+          </div>
+        </div>
       </footer>
     </div>
   );

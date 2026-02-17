@@ -1,17 +1,36 @@
 import { useGSAP } from '@gsap/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { gsap } from '@/lib/gsap';
 
 const SECTIONS = [
-  { label: 'about', href: '#about' },
-  { label: 'projects', href: '#projects' },
-  { label: 'links', href: '#links' },
+  { label: 'ABOUT', href: '#about', index: '01' },
+  { label: 'PROJECTS', href: '#projects', index: '02' },
+  { label: 'LINKS', href: '#links', index: '03' },
 ] as const;
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [clock, setClock] = useState('');
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setClock(
+        now.toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
+      );
+    };
+    update();
+    const id = setInterval(update, 1000);
+
+    return () => clearInterval(id);
+  }, []);
 
   useGSAP(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -31,25 +50,37 @@ export function Nav() {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-6 py-5 transition-all duration-300 md:px-12 ${
-        scrolled ? 'bg-background/80 backdrop-blur-md' : ''
+      className={`fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-12 ${
+        scrolled ? 'border-warm-700/60 bg-background/80 border-b backdrop-blur-md' : ''
       }`}
     >
-      <a
-        href="#"
-        className="text-foreground hover:text-foreground font-mono text-sm tracking-wider no-underline"
-      >
-        salka.lol
-      </a>
+      {/* Left: Status + Logo */}
+      <div className="flex items-center gap-3">
+        <span className="bg-acid-500 inline-block h-2 w-2 rounded-full shadow-[0_0_6px_hsl(72_100%_42%)]" />
+        <span className="font-display text-foreground text-xl tracking-wider">SALKA.LOL</span>
+      </div>
 
-      <div className="flex items-center gap-6">
-        {SECTIONS.map(({ label, href }) => (
+      {/* Center: Clock + Status (desktop) */}
+      <div className="text-muted-foreground hidden items-center gap-4 font-mono text-[11px] tracking-widest md:flex">
+        <span className="text-warm-400">{clock}</span>
+        <span className="text-warm-600">|</span>
+        <span>
+          SYS:<span className="text-acid-500">NOMINAL</span>
+        </span>
+      </div>
+
+      {/* Right: Section links */}
+      <div className="flex items-center gap-5">
+        {SECTIONS.map(({ label, href, index }) => (
           <a
             key={label}
             href={href}
-            className="text-muted-foreground font-mono text-xs tracking-widest uppercase no-underline transition-colors hover:text-cyan-400"
+            className="text-muted-foreground group hover:text-foreground flex items-center gap-1.5 font-mono text-[11px] tracking-widest no-underline transition-colors"
           >
-            {label}
+            <span className="text-magenta-500 text-[10px] opacity-60 transition-opacity group-hover:opacity-100">
+              {index}
+            </span>
+            <span>{label}</span>
           </a>
         ))}
       </div>

@@ -26,6 +26,6 @@ export type StatusColor = (typeof statusColors)[number];
 /**
  * Brand color palette names.
  */
-export const brandColors = ['cyan', 'neutral'] as const;
+export const brandColors = ['cyan', 'magenta', 'acid', 'warm', 'neutral'] as const;
 
 export type BrandColor = (typeof brandColors)[number];

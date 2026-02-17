@@ -149,6 +149,19 @@
     --sidebar-muted-foreground: var(--color-neutral-400);
 
     /* =========================================================================
+     * BRUTAL ACCENT TOKENS
+     * ========================================================================= */
+    --brutal-primary: var(--color-magenta-500);
+    --brutal-primary-glow: var(--color-magenta-400);
+    --brutal-primary-foreground: var(--color-magenta-100);
+    --brutal-secondary: var(--color-cyan-400);
+    --brutal-secondary-glow: var(--color-cyan-300);
+    --brutal-secondary-foreground: var(--color-cyan-100);
+    --brutal-tertiary: var(--color-acid-500);
+    --brutal-tertiary-glow: var(--color-acid-400);
+    --brutal-tertiary-foreground: var(--color-acid-100);
+
+    /* =========================================================================
      * DATA VISUALIZATION TOKENS
      * ========================================================================= */
     --chart-1: var(--color-purple-500);
@@ -165,6 +178,24 @@
    * =========================================================================== */
   .dark {
     /* No overrides needed — :root is already dark */
+  }
+
+  /* ===========================================================================
+   * .brutal class — warm industrial override scope
+   * =========================================================================== */
+  .brutal {
+    --background: var(--color-warm-900);
+    --foreground: var(--color-warm-100);
+    --border: hsl(28 10% 100% / 0.1);
+    --border-strong: hsl(28 10% 100% / 0.18);
+    --border-subtle: hsl(28 10% 100% / 0.05);
+    --muted: var(--color-warm-800);
+    --muted-foreground: var(--color-warm-400);
+    --surface: var(--color-warm-800);
+    --surface-raised: var(--color-warm-700);
+    --surface-sunken: var(--color-warm-950);
+    --card: var(--color-warm-800);
+    --card-foreground: var(--color-warm-100);
   }
 }
 
