@@ -94,12 +94,12 @@ export function HeroSection() {
 
       {/* Left vertical text (desktop) */}
       <div className="vertical-text text-warm-600 pointer-events-none absolute top-1/2 left-6 z-10 hidden -translate-y-1/2 font-mono text-[10px] tracking-[0.3em] select-none md:block">
-        PERSONAL_HOMEPAGE_V2.0
+        PERSONAL_HOMEPAGE_V3.0
       </div>
 
       {/* Right vertical text (desktop) */}
       <div className="vertical-text text-warm-600 pointer-events-none absolute top-1/2 right-6 z-10 hidden -translate-y-1/2 font-mono text-[10px] tracking-[0.3em] select-none md:block">
-        SF // 37.7988°N 122.4505°W
+        SF // 37.7988°N 237.5495°W
       </div>
 
       <div className="border-trace relative z-10 px-6 py-4 text-center md:px-10 md:py-6">

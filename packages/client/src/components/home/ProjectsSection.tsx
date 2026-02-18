@@ -7,29 +7,29 @@ void ScrollTrigger;
 
 const PROJECTS = [
   {
-    name: 'SALKA.LOL',
-    description:
-      'This site. A brutalist personal homepage with GSAP animations and industrial design.',
-    tags: ['React', 'GSAP', 'Tailwind'],
-    href: 'https://github.com/ssalka',
-    status: 'LIVE',
-    accent: 'magenta' as const,
-  },
-  {
-    name: 'AI-TOOLKIT',
-    description: 'A modular toolkit for building AI-powered applications with pluggable providers.',
-    tags: ['TypeScript', 'LLM', 'Node.js'],
-    href: 'https://github.com/ssalka',
+    name: 'ALUNA',
+    description: 'AI-powered candidate assessments with deep research capabilities.',
+    tags: ['AI', 'React', 'tRPC'],
+    href: 'https://github.com/ssalka/aluna',
     status: 'DEV',
     accent: 'cyan' as const,
   },
   {
-    name: 'MONOREPO-STARTER',
-    description: 'Opinionated full-stack monorepo with auth, tRPC, and design system.',
-    tags: ['pnpm', 'tRPC', 'Auth.js'],
-    href: 'https://github.com/ssalka',
+    name: 'PROJECT-STARTER',
+    description: 'Opinionated full-stack monorepo starter with ready-to-go database & OAuth.',
+    tags: ['TypeScript', 'tRPC', 'shadcn/ui'],
+    href: 'https://github.com/ssalka/project-starter',
     status: 'STABLE',
     accent: 'acid' as const,
+  },
+  {
+    name: 'SALKA.LOL',
+    description:
+      'This site. A brutalist-cyberpunk personal homepage with GSAP animations and industrial design.',
+    tags: ['React', 'GSAP', 'Tailwind'],
+    href: 'https://github.com/ssalka/salka.lol',
+    status: 'LIVE',
+    accent: 'magenta' as const,
   },
 ] as const;
 
