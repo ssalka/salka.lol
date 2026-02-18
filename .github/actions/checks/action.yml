@@ -17,9 +17,7 @@ runs:
   - name: Typechecking
     shell: bash
     if: always()
-    # NOTE this check doesn't have a pre-defined package.json script because
-    # it should only be used in CI. Locally, use `pnpm typecheck` instead.
-    run: pnpm --parallel typecheck:track
+    run: pnpm typecheck
 
   - name: Check for uncommitted codegen diffs
     shell: bash

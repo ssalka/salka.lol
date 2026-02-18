@@ -77,9 +77,3 @@ Do not use `useCallback` or `useMemo`. Instead, functions and computed values in
 ### TanStack Router
 
 Client-side routes are managed by TanStack Router, and are defined in [packages/client/src/routes](../../../packages/client/src/routes).
-
-## Backend Patterns
-
-### tRPC (API routes)
-
-The server package's tRPC routes are defined in [packages/server/src/api](../../../packages/server/src/api). `protectedProcedure` is used for any queries/mutations that require an authenticated user.

@@ -90,9 +90,9 @@ pnpm install -D @types/lodash
 ### Installing Multiple Packages
 
 ```bash
-cd packages/server
-pnpm install express body-parser cors
-pnpm install -D @types/express @types/body-parser @types/cors
+cd packages/client
+pnpm install react lodash
+pnpm install -D @types/react @types/lodash
 ```
 
 ### Checking for Existing Versions
@@ -105,7 +105,7 @@ grep -r "\"lodash-es\"" packages/*/package.json
 
 # Output might show:
 # packages/client/package.json:    "lodash-es": "^4.17.21"
-# packages/server/package.json:    "lodash-es": "^4.17.21"
+# packages/ui/package.json:    "lodash-es": "^4.17.21"
 
 # Install the same version in a new package
 cd packages/common

@@ -3,9 +3,9 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import type { RouterOutput } from '@ssalka/api/types';
+// TODO placeholder for admin user
 
-type User = RouterOutput['user']['get'];
+type User = {};
 
 interface UserActions {
   setUser(user: User | null): void;

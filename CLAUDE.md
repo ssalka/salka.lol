@@ -19,10 +19,8 @@
 
 ## Packages
 
-| Package | Path | Description |
-|---------|------|-------------|
-| `client` | `packages/client` | React frontend (Vite, TanStack Router, Zustand) |
-| `server` | `packages/server` | Express/tRPC backend (MongoDB/Mongoose, Auth.js, CASL) |
-| `@ssalka/common` | `packages/common` | Shared types and config |
-| `@ssalka/ui` | `packages/ui` | Shared UI components (shadcn/ui, Radix, Tailwind) |
-| `scripts` | `packages/scripts` | Build and dev scripts |
+| Package          | Path              | Description                                       |
+| ---------------- | ----------------- | ------------------------------------------------- |
+| `client`         | `packages/client` | React frontend (Vite, TanStack Router, Zustand)   |
+| `@ssalka/common` | `packages/common` | Shared types and config                           |
+| `@ssalka/ui`     | `packages/ui`     | Shared UI components (shadcn/ui, Radix, Tailwind) |

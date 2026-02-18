@@ -108,7 +108,7 @@ export function GlitchControlPanel() {
         <div className="flex gap-2">
           <button
             onClick={() => randomize()}
-            className="text-warm-500 hover:text-cyan-400 font-mono text-[10px] tracking-widest transition-colors"
+            className="text-warm-500 font-mono text-[10px] tracking-widest transition-colors hover:text-cyan-400"
           >
             [RND]
           </button>

@@ -16,8 +16,7 @@
 Use `--filter` to run checks on a specific package:
 
 ```bash
-pnpm --filter client lint
-pnpm --filter server typecheck
+pnpm --filter client typecheck
 pnpm --filter @ssalka/ui format
 pnpm --filter @ssalka/common lint --fix
 ```
@@ -35,7 +34,7 @@ Per-package testing:
 
 ```bash
 pnpm --filter client test
-pnpm --filter server test seed
+pnpm --filter @ssalka/common test seed
 pnpm --filter @ssalka/common test
 ```
 

@@ -1,8 +1,17 @@
 {
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["../server"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "../server"
+  ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -16,15 +25,25 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@ssalka/api/types": ["../server/src/types.ts"],
-      "@ssalka/api/env": ["../server/env.d.ts"],
-      "@ssalka/common/*": ["../common/src/*"],
-      "@ssalka/ui/*": ["../ui/src/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@ssalka/common/*": [
+        "../common/src/*"
+      ],
+      "@ssalka/ui/*": [
+        "../ui/src/*"
+      ]
     },
-
     // Vite takes care of building everything, not tsc.
     "noEmit": true
   },
-  "references": [{ "path": "../common" }, { "path": "../ui" }]
+  "references": [
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../ui"
+    }
+  ]
 }

@@ -57,7 +57,7 @@ export function Nav() {
       {/* Left: Status + Logo */}
       <a
         href="#"
-        onClick={(e) => {
+        onClick={e => {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
@@ -82,7 +82,7 @@ export function Nav() {
           <a
             key={label}
             href={href}
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
             }}

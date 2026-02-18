@@ -55,8 +55,10 @@ export const useGlitchStore = create<GlitchStore>()(
         randomize() {
           const rand = (min: number, max: number, step: number) => {
             const steps = Math.round((max - min) / step);
+
             return min + Math.round(Math.random() * steps) * step;
           };
+
           set({
             glitchInterval: rand(1, 10, 0.5),
             displacement: rand(0, 10, 0.5),
