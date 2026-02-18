@@ -13,8 +13,8 @@
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint --format codeframe . ",
     "gen:routes": "tsr generate",
     "start": "vite preview",
-    "test": "cross-env VITE_USER_NODE_ENV=test vitest",
-    "test:ui": "cross-env VITE_USER_NODE_ENV=test vitest --ui",
+    "test": "cross-env VITE_USER_NODE_ENV=test vitest --passWithNoTests",
+    "test:ui": "cross-env VITE_USER_NODE_ENV=test vitest --passWithNoTests --ui",
     "test:e2e": "cross-env VITE_E2E=1 NODE_ENV=test playwright test",
     "test:e2e:ui": "cross-env VITE_E2E=1 NODE_ENV=test playwright test --ui",
     "typecheck": "tsgo -b"
