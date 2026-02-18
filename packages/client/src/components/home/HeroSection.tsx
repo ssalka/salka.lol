@@ -102,10 +102,7 @@ export function HeroSection() {
         SF // 37.7988°N 122.4505°W
       </div>
 
-      {/* Gradient accent line above name */}
-      <div className="from-magenta-500 via-magenta-500/0 relative z-10 mb-6 h-px w-48 bg-gradient-to-r md:w-72" />
-
-      <div className="relative z-10 text-center">
+      <div className="border-trace relative z-10 px-6 py-4 text-center md:px-10 md:py-6">
         <h1 className="font-display leading-none tracking-tight">
           <span
             ref={stevenRef}
@@ -129,9 +126,6 @@ export function HeroSection() {
           className="blink-cursor text-acid-500 mt-6 h-8 font-mono text-sm tracking-[0.2em] md:text-base"
         />
       </div>
-
-      {/* Gradient accent line below name */}
-      <div className="relative z-10 mt-6 h-px w-48 bg-gradient-to-l from-cyan-400 via-cyan-400/0 md:w-72" />
 
       {/* Scroll indicator */}
       <div

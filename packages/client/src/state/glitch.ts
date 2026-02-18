@@ -29,6 +29,7 @@ export const GLITCH_DEFAULTS: GlitchParams = {
 interface GlitchActions {
   setParam: <K extends keyof GlitchParams>(key: K, value: GlitchParams[K]) => void;
   resetDefaults: () => void;
+  randomize: () => void;
 }
 
 interface GlitchStore extends GlitchParams {
@@ -49,6 +50,21 @@ export const useGlitchStore = create<GlitchStore>()(
 
         resetDefaults() {
           set(GLITCH_DEFAULTS);
+        },
+
+        randomize() {
+          const rand = (min: number, max: number, step: number) => {
+            const steps = Math.round((max - min) / step);
+            return min + Math.round(Math.random() * steps) * step;
+          };
+          set({
+            glitchInterval: rand(1, 10, 0.5),
+            displacement: rand(0, 10, 0.5),
+            blurIntensity: rand(0, 8, 0.5),
+            colorShift: Math.random() > 0.5,
+            doublePulse: Math.random() > 0.5,
+            cssGlitch: Math.random() > 0.5,
+          });
         },
       },
     })),

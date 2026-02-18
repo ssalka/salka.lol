@@ -55,10 +55,17 @@ export function Nav() {
       }`}
     >
       {/* Left: Status + Logo */}
-      <div className="flex items-center gap-3">
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        className="flex items-center gap-3 no-underline"
+      >
         <span className="bg-acid-500 inline-block h-2 w-2 rounded-full shadow-[0_0_6px_hsl(72_100%_42%)]" />
         <span className="font-display text-foreground text-xl tracking-wider">SALKA.LOL</span>
-      </div>
+      </a>
 
       {/* Center: Clock + Status (desktop) */}
       <div className="text-muted-foreground hidden items-center gap-4 font-mono text-[11px] tracking-widest md:flex">
@@ -75,6 +82,10 @@ export function Nav() {
           <a
             key={label}
             href={href}
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="text-muted-foreground group hover:text-foreground flex items-center gap-1.5 font-mono text-[11px] tracking-widest no-underline transition-colors"
           >
             <span className="text-magenta-500 text-[10px] opacity-60 transition-opacity group-hover:opacity-100">

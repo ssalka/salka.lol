@@ -87,7 +87,7 @@ function GlitchSlider({
 export function GlitchControlPanel() {
   const [open, setOpen] = useState(false);
   const store = useGlitchStore();
-  const { setParam, resetDefaults } = store.actions;
+  const { setParam, resetDefaults, randomize } = store.actions;
 
   if (!open) {
     return (
@@ -106,6 +106,12 @@ export function GlitchControlPanel() {
       <div className="border-warm-700/40 flex items-center justify-between border-b px-3 py-2">
         <span className="text-magenta-500 font-mono text-[10px] tracking-widest">SIGNAL_CTRL</span>
         <div className="flex gap-2">
+          <button
+            onClick={() => randomize()}
+            className="text-warm-500 hover:text-cyan-400 font-mono text-[10px] tracking-widest transition-colors"
+          >
+            [RND]
+          </button>
           <button
             onClick={() => resetDefaults()}
             className="text-warm-500 hover:text-acid-500 font-mono text-[10px] tracking-widest transition-colors"

@@ -15,8 +15,14 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 }
 
@@ -256,10 +262,113 @@
   }
 }
 
+/* =============================================================================
+ * BORDER TRACE — animated pixel-with-trail orbiting the element perimeter
+ * ============================================================================= */
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-trace-rotate {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+@utility border-trace {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0%,
+      hsl(330 100% 48% / 0.1) 3%,
+      hsl(330 100% 48% / 0.5) 7%,
+      hsl(330 100% 48%) 10%,
+      transparent 14%,
+      transparent 50%,
+      hsl(185 100% 42% / 0.1) 53%,
+      hsl(185 100% 42% / 0.5) 57%,
+      hsl(185 100% 42%) 60%,
+      transparent 64%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: border-trace-rotate 4s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* soft glow halo */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 5px;
+    background: conic-gradient(
+      from var(--border-angle),
+      transparent 0%,
+      hsl(330 100% 48% / 0.35) 8%,
+      transparent 14%,
+      transparent 50%,
+      hsl(185 100% 42% / 0.35) 58%,
+      transparent 64%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    filter: blur(4px);
+    animation: border-trace-rotate 4s linear infinite;
+    pointer-events: none;
+  }
+}
+
 /* Disable CSS glitch animations for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .glitch-text::before,
   .glitch-text::after {
     animation: none !important;
+  }
+
+  .border-trace::before,
+  .border-trace::after {
+    animation: none !important;
+    background: linear-gradient(90deg, hsl(330 100% 48% / 0.3), transparent 30%, transparent 70%, hsl(185 100% 42% / 0.3)) !important;
+    mask: none !important;
+    -webkit-mask: none !important;
+    filter: none !important;
+    inset: auto 0 !important;
+    height: 1px !important;
+    padding: 0 !important;
+  }
+  .border-trace::before {
+    top: 0 !important;
+    bottom: auto !important;
+  }
+  .border-trace::after {
+    bottom: 0 !important;
+    top: auto !important;
   }
 }
