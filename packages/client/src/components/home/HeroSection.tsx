@@ -106,6 +106,7 @@ export function HeroSection() {
         <h1 className="font-display leading-none tracking-tight">
           <span
             ref={stevenRef}
+            data-testid="first-name"
             data-text="STEVEN"
             className={cn('text-glow-magenta text-magenta-500 block', cssGlitch && 'glitch-text')}
             style={{ fontSize: 'clamp(4rem, 15vw, 12rem)' }}

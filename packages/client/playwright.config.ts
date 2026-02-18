@@ -53,12 +53,6 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: 'cross-env NODE_ENV=test PORT=3001 pnpm --filter=server dev',
-      url: `${config.server.url}/healthcheck`,
-      reuseExistingServer: !isCI,
-      name: 'server',
-    },
-    {
       url: baseURL,
       // in CI, a production-ready build (using `--mode=staging`) is used to avoid waiting for vite to optimize deps
       command: 'pnpm --filter=client start',
