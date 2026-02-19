@@ -1,12 +1,11 @@
-# Project Starter
+# salka.lol
 
-An opinionated full-stack monorepo starter with authentication, type-safe APIs, and a polished design system.
+My personal website  ~~ooOOooOooOOoOo`~
 
 ## Tech Stack
 
 - **Monorepo**: pnpm workspaces
 - **Frontend**: React 19, Vite, TanStack Router, Zustand, Tailwind CSS v4, shadcn/ui
-- **Backend**: Express, tRPC, MongoDB/Mongoose, Auth.js, CASL
 - **Testing**: Vitest, Playwright, React Testing Library
 - **Tooling**: TypeScript, ESLint, Prettier, GitHub Actions CI
 
