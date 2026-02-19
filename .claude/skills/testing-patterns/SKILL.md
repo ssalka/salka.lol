@@ -34,7 +34,7 @@ import { expect, test } from '@playwright/test';
 # Unit tests
 pnpm test                    # All unit tests
 pnpm test <pattern>          # Unit tests matching pattern
-pnpm --filter server test    # Server package only
+pnpm --filter client test    # Client package only
 
 # E2E tests (always use root script)
 pnpm test:e2e                # All E2E tests
@@ -90,15 +90,6 @@ describe('functionName', () => {
 ```
 
 ## Mocking Patterns
-
-### Module Mocking
-
-```typescript
-vi.mock('../lib/api', async importOriginal => {
-  const actual = await importOriginal<typeof ApiModule>();
-  return { ...actual, customMock: vi.fn() };
-});
-```
 
 ### Spy Functions
 

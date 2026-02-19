@@ -20,16 +20,10 @@ Requires [pnpm](https://pnpm.io/) and [Node.js](https://nodejs.org/).
    pnpm i
    ```
 
-2. Start the development servers
+2. Start the development server
 
    ```sh
    pnpm dev
-   ```
-
-   Or run frontend & backend individually:
-   ```sh
-   pnpm dev:client
-   pnpm dev:server
    ```
 
 3. Open the app at [`localhost:5173`](http://localhost:5173/)
@@ -72,7 +66,7 @@ Per-package:
 
 ```sh
 pnpm --filter client typecheck
-pnpm --filter server lint
+pnpm --filter @ssalka/common lint
 pnpm --filter @ssalka/ui format
 ```
 
@@ -81,8 +75,6 @@ pnpm --filter @ssalka/ui format
 ```
 packages/
   client/     - React frontend (Vite, TanStack Router, Zustand)
-  server/     - Express/tRPC backend (MongoDB, Auth.js, CASL)
   common/     - Shared types and config (@ssalka/common)
   ui/         - UI component library (@ssalka/ui)
-  scripts/    - Build and dev scripts
 ```

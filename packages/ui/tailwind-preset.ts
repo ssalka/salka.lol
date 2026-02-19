@@ -115,22 +115,65 @@ const preset: Partial<Config> = {
 
         /* =====================================================================
          * BRAND COLORS
-         * Modern industrial palette with warm neutrals and orange accent.
+         * Futuristic palette with cool neutrals and cyan accent.
          * ===================================================================== */
 
-        orange: {
-          DEFAULT: 'var(--color-orange-500)',
-          50: 'var(--color-orange-50)',
-          100: 'var(--color-orange-100)',
-          200: 'var(--color-orange-200)',
-          300: 'var(--color-orange-300)',
-          400: 'var(--color-orange-400)',
-          500: 'var(--color-orange-500)',
-          600: 'var(--color-orange-600)',
-          700: 'var(--color-orange-700)',
-          800: 'var(--color-orange-800)',
-          900: 'var(--color-orange-900)',
-          950: 'var(--color-orange-950)',
+        cyan: {
+          DEFAULT: 'var(--color-cyan-500)',
+          50: 'var(--color-cyan-50)',
+          100: 'var(--color-cyan-100)',
+          200: 'var(--color-cyan-200)',
+          300: 'var(--color-cyan-300)',
+          400: 'var(--color-cyan-400)',
+          500: 'var(--color-cyan-500)',
+          600: 'var(--color-cyan-600)',
+          700: 'var(--color-cyan-700)',
+          800: 'var(--color-cyan-800)',
+          900: 'var(--color-cyan-900)',
+          950: 'var(--color-cyan-950)',
+        },
+        neutral: {
+          DEFAULT: 'var(--color-neutral-500)',
+          50: 'var(--color-neutral-50)',
+          100: 'var(--color-neutral-100)',
+          200: 'var(--color-neutral-200)',
+          300: 'var(--color-neutral-300)',
+          400: 'var(--color-neutral-400)',
+          500: 'var(--color-neutral-500)',
+          600: 'var(--color-neutral-600)',
+          700: 'var(--color-neutral-700)',
+          800: 'var(--color-neutral-800)',
+          900: 'var(--color-neutral-900)',
+          950: 'var(--color-neutral-950)',
+        },
+
+        magenta: {
+          DEFAULT: 'var(--color-magenta-500)',
+          50: 'var(--color-magenta-50)',
+          100: 'var(--color-magenta-100)',
+          200: 'var(--color-magenta-200)',
+          300: 'var(--color-magenta-300)',
+          400: 'var(--color-magenta-400)',
+          500: 'var(--color-magenta-500)',
+          600: 'var(--color-magenta-600)',
+          700: 'var(--color-magenta-700)',
+          800: 'var(--color-magenta-800)',
+          900: 'var(--color-magenta-900)',
+          950: 'var(--color-magenta-950)',
+        },
+        acid: {
+          DEFAULT: 'var(--color-acid-500)',
+          50: 'var(--color-acid-50)',
+          100: 'var(--color-acid-100)',
+          200: 'var(--color-acid-200)',
+          300: 'var(--color-acid-300)',
+          400: 'var(--color-acid-400)',
+          500: 'var(--color-acid-500)',
+          600: 'var(--color-acid-600)',
+          700: 'var(--color-acid-700)',
+          800: 'var(--color-acid-800)',
+          900: 'var(--color-acid-900)',
+          950: 'var(--color-acid-950)',
         },
         warm: {
           DEFAULT: 'var(--color-warm-500)',
@@ -145,6 +188,17 @@ const preset: Partial<Config> = {
           800: 'var(--color-warm-800)',
           900: 'var(--color-warm-900)',
           950: 'var(--color-warm-950)',
+        },
+        brutal: {
+          primary: 'var(--brutal-primary)',
+          'primary-glow': 'var(--brutal-primary-glow)',
+          'primary-foreground': 'var(--brutal-primary-foreground)',
+          secondary: 'var(--brutal-secondary)',
+          'secondary-glow': 'var(--brutal-secondary-glow)',
+          'secondary-foreground': 'var(--brutal-secondary-foreground)',
+          tertiary: 'var(--brutal-tertiary)',
+          'tertiary-glow': 'var(--brutal-tertiary-glow)',
+          'tertiary-foreground': 'var(--brutal-tertiary-foreground)',
         },
 
         brand: {
@@ -334,6 +388,26 @@ const preset: Partial<Config> = {
             animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
           },
         },
+        'glitch-1': {
+          ['0%']: { clipPath: 'inset(0 0 100% 0)', transform: 'translate(0)' },
+          ['20%']: { clipPath: 'inset(20% 0 40% 0)', transform: 'translate(-4px, 2px)' },
+          ['40%']: { clipPath: 'inset(60% 0 10% 0)', transform: 'translate(4px, -2px)' },
+          ['60%']: { clipPath: 'inset(10% 0 60% 0)', transform: 'translate(-2px, 4px)' },
+          ['80%']: { clipPath: 'inset(40% 0 20% 0)', transform: 'translate(2px, -4px)' },
+          ['100%']: { clipPath: 'inset(0 0 0 0)', transform: 'translate(0)' },
+        },
+        'glitch-2': {
+          ['0%']: { clipPath: 'inset(100% 0 0 0)', transform: 'translate(0)' },
+          ['20%']: { clipPath: 'inset(40% 0 20% 0)', transform: 'translate(4px, -2px)' },
+          ['40%']: { clipPath: 'inset(10% 0 60% 0)', transform: 'translate(-4px, 2px)' },
+          ['60%']: { clipPath: 'inset(60% 0 10% 0)', transform: 'translate(2px, -4px)' },
+          ['80%']: { clipPath: 'inset(20% 0 40% 0)', transform: 'translate(-2px, 4px)' },
+          ['100%']: { clipPath: 'inset(0 0 0 0)', transform: 'translate(0)' },
+        },
+        'clip-reveal': {
+          ['0%']: { clipPath: 'inset(0 100% 0 0)' },
+          ['100%']: { clipPath: 'inset(0 0 0 0)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down var(--duration-200) var(--ease-out)',
@@ -349,6 +423,9 @@ const preset: Partial<Config> = {
         spin: 'spin 1s linear infinite',
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         bounce: 'bounce 1s infinite',
+        'glitch-1': 'glitch-1 0.3s ease-in-out',
+        'glitch-2': 'glitch-2 0.3s ease-in-out',
+        'clip-reveal': 'clip-reveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards',
       },
     },
 
@@ -358,6 +435,7 @@ const preset: Partial<Config> = {
     fontFamily: {
       sans: ['Geist', ...defaultTheme.fontFamily.sans],
       mono: ['Geist-Mono', ...defaultTheme.fontFamily.mono],
+      display: ['Bebas Neue', 'Oswald', ...defaultTheme.fontFamily.sans],
     },
   },
 };

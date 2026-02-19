@@ -2,14 +2,14 @@
  * =============================================================================
  * DESIGN SYSTEM - COLOR TOKENS
  * =============================================================================
- * 
+ *
  * This file imports and exposes the design token system.
- * 
+ *
  * Token Architecture (3 layers):
  * 1. Primitives: Raw color ramps with no semantic meaning
  * 2. Semantic: Meaningful tokens for UI elements (supports theming)
  * 3. Component: Component-specific tokens (defined in components)
- * 
+ *
  * USAGE:
  * - In Tailwind/CSS: Use semantic tokens (bg-primary, text-foreground, etc.)
  * - Never use primitive tokens directly in components
@@ -21,34 +21,73 @@
 
 /* =============================================================================
  * This exposes the brand colors for use as Tailwind utilities.
- * Modern industrial palette with warm neutrals and orange accent.
+ * Futuristic palette with cool neutrals and cyan accent.
  * ============================================================================= */
 @layer base {
   @theme {
-    /* --- Orange (Primary Accent) --- */
-    --color-orange-50: hsl(24 100% 97%);
-    --color-orange-100: hsl(24 100% 93%);
-    --color-orange-200: hsl(24 95% 82%);
-    --color-orange-300: hsl(24 90% 68%);
-    --color-orange-400: hsl(24 95% 56%);
-    --color-orange-500: hsl(24 100% 50%);
-    --color-orange-600: hsl(24 100% 42%);
-    --color-orange-700: hsl(24 100% 35%);
-    --color-orange-800: hsl(24 100% 25%);
-    --color-orange-900: hsl(24 100% 15%);
-    --color-orange-950: hsl(24 100% 8%);
+    /* --- Cyan (Primary Accent) --- */
+    --color-cyan-50: hsl(185 100% 97%);
+    --color-cyan-100: hsl(185 90% 90%);
+    --color-cyan-200: hsl(185 85% 78%);
+    --color-cyan-300: hsl(185 80% 65%);
+    --color-cyan-400: hsl(185 90% 50%);
+    --color-cyan-500: hsl(185 100% 42%);
+    --color-cyan-600: hsl(185 100% 35%);
+    --color-cyan-700: hsl(185 100% 28%);
+    --color-cyan-800: hsl(185 100% 20%);
+    --color-cyan-900: hsl(185 100% 12%);
+    --color-cyan-950: hsl(185 100% 6%);
 
-    /* --- Warm Neutrals (Backgrounds & Surfaces) --- */
-    --color-warm-50: hsl(40 33% 99%);
-    --color-warm-100: hsl(40 25% 97%);
-    --color-warm-200: hsl(40 20% 94%);
-    --color-warm-300: hsl(40 15% 88%);
-    --color-warm-400: hsl(35 10% 70%);
-    --color-warm-500: hsl(30 8% 52%);
-    --color-warm-600: hsl(30 6% 40%);
-    --color-warm-700: hsl(30 8% 28%);
-    --color-warm-800: hsl(30 10% 18%);
-    --color-warm-900: hsl(30 10% 12%);
-    --color-warm-950: hsl(30 12% 8%);
+    /* --- Magenta (Primary Accent — Hot Pink Neon) --- */
+    --color-magenta-50: hsl(330 100% 97%);
+    --color-magenta-100: hsl(330 95% 90%);
+    --color-magenta-200: hsl(330 90% 80%);
+    --color-magenta-300: hsl(330 95% 68%);
+    --color-magenta-400: hsl(330 100% 56%);
+    --color-magenta-500: hsl(330 100% 48%);
+    --color-magenta-600: hsl(330 100% 40%);
+    --color-magenta-700: hsl(330 100% 32%);
+    --color-magenta-800: hsl(330 100% 24%);
+    --color-magenta-900: hsl(330 100% 16%);
+    --color-magenta-950: hsl(330 100% 8%);
+
+    /* --- Acid (Tertiary — Electric Yellow-Green) --- */
+    --color-acid-50: hsl(72 100% 96%);
+    --color-acid-100: hsl(72 95% 88%);
+    --color-acid-200: hsl(72 90% 76%);
+    --color-acid-300: hsl(72 95% 62%);
+    --color-acid-400: hsl(72 100% 50%);
+    --color-acid-500: hsl(72 100% 42%);
+    --color-acid-600: hsl(72 100% 34%);
+    --color-acid-700: hsl(72 100% 26%);
+    --color-acid-800: hsl(72 100% 18%);
+    --color-acid-900: hsl(72 100% 12%);
+    --color-acid-950: hsl(72 100% 6%);
+
+    /* --- Warm Gray (Concrete/Industrial Backgrounds) --- */
+    --color-warm-50: hsl(28 15% 97%);
+    --color-warm-100: hsl(27 12% 92%);
+    --color-warm-200: hsl(26 10% 82%);
+    --color-warm-300: hsl(25 8% 68%);
+    --color-warm-400: hsl(25 6% 52%);
+    --color-warm-500: hsl(26 5% 40%);
+    --color-warm-600: hsl(27 6% 30%);
+    --color-warm-700: hsl(28 8% 20%);
+    --color-warm-800: hsl(28 10% 13%);
+    --color-warm-900: hsl(30 12% 8%);
+    --color-warm-950: hsl(30 14% 5%);
+
+    /* --- Cool Neutrals (Backgrounds & Surfaces) --- */
+    --color-neutral-50: hsl(210 20% 98%);
+    --color-neutral-100: hsl(210 15% 95%);
+    --color-neutral-200: hsl(210 12% 90%);
+    --color-neutral-300: hsl(210 10% 82%);
+    --color-neutral-400: hsl(210 8% 65%);
+    --color-neutral-500: hsl(210 6% 47%);
+    --color-neutral-600: hsl(210 8% 35%);
+    --color-neutral-700: hsl(210 10% 23%);
+    --color-neutral-800: hsl(210 12% 15%);
+    --color-neutral-900: hsl(210 14% 10%);
+    --color-neutral-950: hsl(210 16% 6%);
   }
 }

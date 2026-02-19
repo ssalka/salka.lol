@@ -48,31 +48,10 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], storageState: undefined },
       testMatch: /unauthed\.spec\.ts/,
     },
-    {
-      name: 'auth',
-      use: { ...devices['Desktop Chrome'] },
-      testMatch: /auth\.setup\.ts/,
-    },
-    {
-      name: 'authenticated-tests',
-      dependencies: ['auth'],
-      testMatch: /^(?!.*unauthed).*\.spec\.ts$/,
-      use: {
-        ...devices['Desktop Chrome'],
-        /* Store authentication state between tests */
-        storageState: './e2e/.auth/user.json',
-      },
-    },
   ],
 
   /* Run your local dev server before starting the tests */
   webServer: [
-    {
-      command: 'cross-env NODE_ENV=test PORT=3001 pnpm --filter=server dev',
-      url: `${config.server.url}/healthcheck`,
-      reuseExistingServer: !isCI,
-      name: 'server',
-    },
     {
       url: baseURL,
       // in CI, a production-ready build (using `--mode=staging`) is used to avoid waiting for vite to optimize deps

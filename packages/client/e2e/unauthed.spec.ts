@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
 
-test('Viewing a protected page redirects to login', async ({ page }) => {
-  await page.goto('/dashboard');
+test('Viewing the landing page', async ({ page }) => {
+  await page.goto('/');
 
-  await page.waitForURL('**/login');
-  await expect(page.getByRole('button', { name: 'Sign in with GitHub' })).toBeVisible();
+  await expect(page.getByTestId('first-name')).toBeVisible();
 });
