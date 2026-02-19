@@ -53,12 +53,24 @@ export function HeroSection() {
     () => {
       if (!subtitleRef.current) return;
       subtitleRef.current.textContent = '';
-      gsap.to(subtitleRef.current, {
-        text: { value: 'DESIGNATION // SOFTWARE ENGINEER', delimiter: '' },
-        duration: 1.4,
+
+      const tl = gsap.timeline({ delay: 1.2 });
+
+      tl.to(subtitleRef.current, {
+        text: { value: 'DESIGNATION // ', delimiter: '' },
+        duration: 1,
         ease: 'none',
-        delay: 1.2,
       });
+
+      tl.to(
+        subtitleRef.current,
+        {
+          text: { value: 'DESIGNATION // SOFTWARE ENGINEER', delimiter: '' },
+          duration: 3,
+          ease: 'power1.out',
+        },
+        '+=0.5',
+      );
     },
     { scope: sectionRef },
   );
