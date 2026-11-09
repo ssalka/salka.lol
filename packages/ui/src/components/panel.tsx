@@ -23,8 +23,7 @@ const cornerVariants = cva('pointer-events-none absolute size-3', {
 });
 
 export interface PanelProps
-  extends Omit<React.ComponentProps<'section'>, 'title'>,
-    VariantProps<typeof cornerVariants> {
+  extends Omit<React.ComponentProps<'section'>, 'title'>, VariantProps<typeof cornerVariants> {
   /** Uppercase mono header, e.g. `01 // PROFILE` */
   title?: React.ReactNode;
   /** Secondary header text on the right, e.g. `SEC.01 ACTIVE` */
