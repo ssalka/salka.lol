@@ -10,14 +10,14 @@ export type SwitchProps = React.ComponentProps<typeof SwitchPrimitives.Root>;
 const Switch = ({ className, ...props }: SwitchProps) => (
   <SwitchPrimitives.Root
     className={cn(
-      'peer focus-visible:ring-ring focus-visible:ring-offset-background data-[state=checked]:bg-primary data-[state=unchecked]:bg-input inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+      'peer border-input focus-visible:outline-ring data-[state=checked]:bg-ink data-[state=unchecked]:bg-surface-300 inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-none border p-px transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-40',
       className,
     )}
     {...props}
   >
     <SwitchPrimitives.Thumb
       className={cn(
-        'bg-background pointer-events-none block h-5 w-5 rounded-full shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0',
+        'bg-surface-100 border-ink-muted pointer-events-none block aspect-square h-full rounded-none border transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0',
       )}
     />
   </SwitchPrimitives.Root>
