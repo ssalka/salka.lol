@@ -6,35 +6,38 @@ import { cn } from '@ssalka/ui/utils';
 
 const buttonVariants = cva(
   [
-    'inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium whitespace-nowrap',
-    'transition-colors duration-150',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-    'disabled:pointer-events-none disabled:opacity-50',
+    'inline-flex cursor-pointer items-center justify-center gap-2 rounded-none whitespace-nowrap',
+    'font-mono text-label uppercase',
+    'border border-transparent transition-colors duration-150',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+    'disabled:pointer-events-none disabled:opacity-40',
   ],
   {
     variants: {
       intent: {
-        success: 'bg-success text-white hover:bg-success/90',
-        warning: 'bg-warning text-white hover:bg-warning/90',
-        info: 'bg-info text-white hover:bg-info/90',
-        error: 'bg-error text-white hover:bg-error/90',
+        success: 'bg-success text-on-accent hover:bg-success/90',
+        warning: 'bg-warning text-on-accent hover:bg-warning/90',
+        info: 'bg-info text-on-accent hover:bg-info/90',
+        error: 'bg-error text-destructive-foreground hover:bg-error/90',
       },
       variant: {
-        default:
+        // Chamfered safety-orange fill; the chamfer is dropped while focused so the outline shows
+        default: [
           'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active',
+          '[clip-path:polygon(0_0,calc(100%-8px)_0,100%_8px,100%_100%,0_100%)] focus-visible:[clip-path:none]',
+        ],
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive-hover active:bg-destructive-active',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground active:bg-accent-active',
+        outline: 'border-input text-ink bg-transparent hover:bg-surface-300 active:bg-surface-300',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:bg-secondary-active',
+          'border-input text-ink bg-transparent hover:bg-surface-300 active:bg-surface-300',
         ghost:
-          'hover:bg-accent-hover hover:text-accent-foreground active:bg-accent-active/25 data-[active=true]:bg-accent-active/50 data-[active=true]:text-accent-foreground',
+          'text-brand-text bg-transparent hover:bg-surface-300 active:bg-surface-300 data-[active=true]:bg-surface-300',
         link: 'text-link underline-offset-4 hover:text-link-hover hover:underline',
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        xs: 'h-6 px-2 text-xs',
+        default: 'h-10 px-4 py-3',
+        xs: 'h-6 px-2 text-[11px]',
         sm: 'h-8 px-3',
         lg: 'h-11 px-8',
         icon: 'h-10 w-10',
@@ -55,22 +58,22 @@ const buttonVariants = cva(
       {
         intent: 'success',
         variant: 'default',
-        className: 'bg-success text-white hover:bg-success/90',
+        className: 'bg-success text-on-accent hover:bg-success/90',
       },
       {
         intent: 'warning',
         variant: 'default',
-        className: 'bg-warning text-white hover:bg-warning/90',
+        className: 'bg-warning text-on-accent hover:bg-warning/90',
       },
       {
         intent: 'info',
         variant: 'default',
-        className: 'bg-info text-white hover:bg-info/90',
+        className: 'bg-info text-on-accent hover:bg-info/90',
       },
       {
         intent: 'error',
         variant: 'default',
-        className: 'bg-error text-white hover:bg-error/90',
+        className: 'bg-error text-destructive-foreground hover:bg-error/90',
       },
       {
         intent: 'success',
@@ -101,8 +104,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
