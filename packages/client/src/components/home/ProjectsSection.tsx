@@ -23,6 +23,8 @@ interface Project {
   description: string;
   tags: string[];
   href: string;
+  /** Accessible name for the VIEW link; defaults to "View <name> on GitHub" */
+  linkLabel?: string;
   status: ProjectStatus;
   /** The one featured project; its brackets turn brand */
   featured?: boolean;
@@ -30,27 +32,29 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    name: 'RESOLUTE',
+    description:
+      'Your issue tracker as a dependency graph: see what blocks what, and what to work on next.',
+    tags: ['Linear', 'Jira', 'MCP'],
+    href: 'https://resolute.fyi',
+    linkLabel: 'Visit resolute.fyi',
+    status: 'DEV',
+    featured: true,
+  },
+  {
     name: 'ALUNA',
     description: 'AI-powered candidate assessments with deep research capabilities.',
     tags: ['AI', 'React', 'tRPC'],
     href: 'https://github.com/ssalka/aluna',
-    status: 'DEV',
-  },
-  {
-    name: 'PROJECT-STARTER',
-    description: 'Opinionated full-stack monorepo starter with ready-to-go database & OAuth.',
-    tags: ['TypeScript', 'tRPC', 'shadcn/ui'],
-    href: 'https://github.com/ssalka/project-starter',
     status: 'STABLE',
   },
   {
-    name: 'SALKA.LOL',
+    name: 'CLAUDE-SYMPHONY',
     description:
-      'This site. An instrument-console personal homepage built on the Neo-Industrial design system, with GSAP animations.',
-    tags: ['React', 'GSAP', 'Tailwind'],
-    href: 'https://github.com/ssalka/salka.lol',
-    status: 'LIVE',
-    featured: true,
+      'Rust daemon that polls Linear for issues and runs Claude Code as a subprocess agent.',
+    tags: ['Rust', 'Claude Code', 'Linear'],
+    href: 'https://github.com/ssalka/claude-symphony',
+    status: 'STABLE',
   },
 ];
 
@@ -116,7 +120,7 @@ export function ProjectsSection() {
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`View ${project.name} on GitHub`}
+                    aria-label={project.linkLabel ?? `View ${project.name} on GitHub`}
                   >
                     VIEW
                     <span
