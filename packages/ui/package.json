@@ -61,6 +61,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.0",
     "happy-dom": "^20.0.8",
+    "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.0",
     "tailwindcss-animate": "^1.0.7"
   },
