@@ -3,9 +3,27 @@
   <head>
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      // Set the theme before first paint to avoid a flash.
+      // Concrete (light) is the default; Foundry (dark) follows the saved setting,
+      // or `prefers-color-scheme` on the first visit.
+      (function () {
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        try {
+          var saved = JSON.parse(localStorage.getItem('app-settings') || 'null');
+          if (saved && saved.state && typeof saved.state.darkMode === 'boolean') {
+            dark = saved.state.darkMode;
+          }
+        } catch (e) {}
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Barlow:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <title>Steven Salka</title>
   </head>
   <body>

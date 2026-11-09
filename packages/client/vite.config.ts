@@ -3,7 +3,6 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { analyzer } from 'vite-bundle-analyzer';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 /**
@@ -30,14 +29,6 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: '../ui/public/fonts/*',
-          dest: 'fonts',
-        },
-      ],
-    }),
     shouldOpenBuildAnalyzer ? analyzer() : null,
   ],
 });

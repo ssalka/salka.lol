@@ -19,7 +19,6 @@
 
 /* Import design tokens */
 @import './colors.css';
-@import './fonts.css';
 
 /* Reference Tailwind config */
 @config '../tailwind.config.ts';
@@ -63,20 +62,20 @@
 
   /* Body defaults */
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground text-body font-sans antialiased;
     font-feature-settings:
       'rlig' 1,
       'calt' 1;
   }
 
-  /* Focus visible outline for accessibility */
+  /* Focus visible outline for accessibility: 2px ink, offset 2px */
   :focus-visible {
-    @apply ring-ring ring-offset-background ring-2 ring-offset-2 outline-none;
+    @apply outline-ring outline-2 outline-offset-2;
   }
 
-  /* Selection color */
+  /* Selection color: hazard highlight band */
   ::selection {
-    @apply bg-accent text-accent-foreground;
+    @apply bg-hazard text-on-accent;
   }
 
   /* Link defaults */
