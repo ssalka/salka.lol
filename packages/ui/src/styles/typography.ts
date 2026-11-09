@@ -1,31 +1,25 @@
 import { cva } from 'class-variance-authority';
-import { fromPairs } from 'lodash-es';
 
-import { colors } from './colors';
+import type { Color } from './colors';
 
 export type TypographyProps = Parameters<typeof typography>[0];
 
 export type TypographyVariant = NonNullable<NonNullable<TypographyProps>['variant']>;
 
-const colorVariants = fromPairs(colors.map(color => [color, `text-${color}-600`])) as Record<
-  (typeof colors)[number],
-  string
->;
-
-const colorCompoundVariants = colors.map(color => ({
-  variant: 'code' as const,
-  color,
-  className: `bg-${color}-100`,
-}));
+const colorVariants: Record<Color, string> = {
+  ink: 'text-ink',
+  muted: 'text-ink-muted',
+  brand: 'text-brand-text',
+};
 
 export const typography = cva('leading-none tracking-tight text-foreground', {
   variants: {
     variant: {
-      code: 'rounded-md bg-accent p-1 font-mono tracking-normal text-accent-active',
+      code: 'rounded-sm bg-surface-300 p-1 font-mono tracking-normal text-ink',
       // NOTE should be used with `cn` because it overrides tracking-tight
-      codeBlock: 'rounded bg-muted p-2 font-mono tracking-normal',
+      codeBlock: 'rounded-sm bg-surface-300 p-2 font-mono tracking-normal',
       paragraph: 'leading-tight',
-      placeholder: 'italic text-muted-foreground/70',
+      placeholder: 'italic text-ink-muted',
     },
     weight: {
       light: 'font-light',
@@ -51,15 +45,11 @@ export const typography = cva('leading-none tracking-tight text-foreground', {
       normal: 'caps-normal',
       small: 'small-caps tracking-wider',
     },
-    color: {
-      muted: 'text-muted-foreground',
-      ...colorVariants,
-    },
+    color: colorVariants,
     wrap: {
       true: 'whitespace-pre-wrap',
     },
   },
-  compoundVariants: [...colorCompoundVariants],
 });
 
 const eltToVariantProps = {

@@ -9,23 +9,40 @@
  */
 
 /**
- * Semantic color names available in the typography system.
- * These map to Tailwind utility classes (e.g., text-red-600, bg-red-100).
+ * Text colours available in the typography system.
+ * Each maps to a Neo-Industrial text token (see `typography.ts`).
  */
-export const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'] as const;
+export const colors = ['ink', 'muted', 'brand'] as const;
 
 export type Color = (typeof colors)[number];
 
 /**
- * Status colors for UI feedback.
+ * Status colors for UI feedback. Always pair them with a word or marker.
  */
 export const statusColors = ['success', 'warning', 'error', 'info'] as const;
 
 export type StatusColor = (typeof statusColors)[number];
 
 /**
- * Brand color palette names.
+ * Neo-Industrial colour token names, exposed as Tailwind utilities
+ * (e.g. `bg-surface-200`, `text-ink-muted`, `border-hairline`, `bg-brand`, `text-brand-text`).
  */
-export const brandColors = ['cyan', 'magenta', 'acid', 'warm', 'neutral'] as const;
+export const neoIndustrialColors = [
+  'surface-100',
+  'surface-200',
+  'surface-300',
+  'ink',
+  'ink-muted',
+  'hairline',
+  'gunmetal',
+  'on-gunmetal',
+  'steel',
+  'brand',
+  'brand-text',
+  'hazard',
+  'patina',
+  'signal-red',
+  'on-accent',
+] as const;
 
-export type BrandColor = (typeof brandColors)[number];
+export type NeoIndustrialColor = (typeof neoIndustrialColors)[number];

@@ -13,85 +13,54 @@
 @layer base {
   :root {
     /* =========================================================================
-     * COLOR PRIMITIVES - Brand Palette
+     * NEO-INDUSTRIAL PRIMITIVES
      *
-     * Futuristic palette with cool neutrals and cyan accent
-     * All colors defined in HSL format
+     * The 15 Neo-Industrial colours, once per theme.
+     * Concrete = light (default), Foundry = dark.
      * ========================================================================= */
 
-    /* --- Cyan (Primary Accent) --- */
-    --color-cyan-50: hsl(185 100% 97%);
-    --color-cyan-100: hsl(185 90% 90%);
-    --color-cyan-200: hsl(185 85% 78%);
-    --color-cyan-300: hsl(185 80% 65%);
-    --color-cyan-400: hsl(185 90% 50%);
-    --color-cyan-500: hsl(185 100% 42%);
-    --color-cyan-600: hsl(185 100% 35%);
-    --color-cyan-700: hsl(185 100% 28%);
-    --color-cyan-800: hsl(185 100% 20%);
-    --color-cyan-900: hsl(185 100% 12%);
-    --color-cyan-950: hsl(185 100% 6%);
+    /* --- Concrete --- */
+    --ni-concrete-surface-100: #d9d8d4;
+    --ni-concrete-surface-200: #cbcac5;
+    --ni-concrete-surface-300: #b9b8b2;
+    --ni-concrete-ink: #16181a;
+    --ni-concrete-ink-muted: #464a4e;
+    --ni-concrete-hairline: #8d9093;
+    --ni-concrete-gunmetal: #2c3338;
+    --ni-concrete-on-gunmetal: #d9d8d4;
+    --ni-concrete-steel: #5b6770;
+    --ni-concrete-brand: #ff5a1f;
+    --ni-concrete-brand-text: #8f2c08;
+    --ni-concrete-hazard: #f2c200;
+    --ni-concrete-patina: #2f7f74;
+    --ni-concrete-signal-red: #c4281c;
+    --ni-concrete-on-accent: #16181a;
 
-    /* --- Magenta (Primary Accent — Hot Pink Neon) --- */
-    --color-magenta-50: hsl(330 100% 97%);
-    --color-magenta-100: hsl(330 95% 90%);
-    --color-magenta-200: hsl(330 90% 80%);
-    --color-magenta-300: hsl(330 95% 68%);
-    --color-magenta-400: hsl(330 100% 56%);
-    --color-magenta-500: hsl(330 100% 48%);
-    --color-magenta-600: hsl(330 100% 40%);
-    --color-magenta-700: hsl(330 100% 32%);
-    --color-magenta-800: hsl(330 100% 24%);
-    --color-magenta-900: hsl(330 100% 16%);
-    --color-magenta-950: hsl(330 100% 8%);
-
-    /* --- Acid (Tertiary — Electric Yellow-Green) --- */
-    --color-acid-50: hsl(72 100% 96%);
-    --color-acid-100: hsl(72 95% 88%);
-    --color-acid-200: hsl(72 90% 76%);
-    --color-acid-300: hsl(72 95% 62%);
-    --color-acid-400: hsl(72 100% 50%);
-    --color-acid-500: hsl(72 100% 42%);
-    --color-acid-600: hsl(72 100% 34%);
-    --color-acid-700: hsl(72 100% 26%);
-    --color-acid-800: hsl(72 100% 18%);
-    --color-acid-900: hsl(72 100% 12%);
-    --color-acid-950: hsl(72 100% 6%);
-
-    /* --- Warm Gray (Concrete/Industrial Backgrounds) --- */
-    --color-warm-50: hsl(28 15% 97%);
-    --color-warm-100: hsl(27 12% 92%);
-    --color-warm-200: hsl(26 10% 82%);
-    --color-warm-300: hsl(25 8% 68%);
-    --color-warm-400: hsl(25 6% 52%);
-    --color-warm-500: hsl(26 5% 40%);
-    --color-warm-600: hsl(27 6% 30%);
-    --color-warm-700: hsl(28 8% 20%);
-    --color-warm-800: hsl(28 10% 13%);
-    --color-warm-900: hsl(30 12% 8%);
-    --color-warm-950: hsl(30 14% 5%);
-
-    /* --- Cool Neutrals (Backgrounds & Surfaces) --- */
-    --color-neutral-50: hsl(210 20% 98%);
-    --color-neutral-100: hsl(210 15% 95%);
-    --color-neutral-200: hsl(210 12% 90%);
-    --color-neutral-300: hsl(210 10% 82%);
-    --color-neutral-400: hsl(210 8% 65%);
-    --color-neutral-500: hsl(210 6% 47%);
-    --color-neutral-600: hsl(210 8% 35%);
-    --color-neutral-700: hsl(210 10% 23%);
-    --color-neutral-800: hsl(210 12% 15%);
-    --color-neutral-900: hsl(210 14% 10%);
-    --color-neutral-950: hsl(210 16% 6%);
+    /* --- Foundry --- */
+    --ni-foundry-surface-100: #16181a;
+    --ni-foundry-surface-200: #1e2124;
+    --ni-foundry-surface-300: #2a2e32;
+    --ni-foundry-ink: #ecebe6;
+    --ni-foundry-ink-muted: #a3a7a9;
+    --ni-foundry-hairline: #454b50;
+    --ni-foundry-gunmetal: #3a434a;
+    --ni-foundry-on-gunmetal: #ecebe6;
+    --ni-foundry-steel: #8c99a3;
+    --ni-foundry-brand: #ff6a2b;
+    --ni-foundry-brand-text: #ff8a57;
+    --ni-foundry-hazard: #ffd21f;
+    --ni-foundry-patina: #4fb3a5;
+    --ni-foundry-signal-red: #ff5a4d;
+    --ni-foundry-on-accent: #16181a;
 
     /* =========================================================================
      * TYPOGRAPHY PRIMITIVES
      * ========================================================================= */
 
-    /* Font families - defined in fonts.css via @font-face */
-    --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: 'Geist-Mono', ui-monospace, monospace;
-    --font-display: 'Bebas Neue', 'Oswald', ui-sans-serif, system-ui, sans-serif;
+    /* Font families - Google-hosted (loaded in the app's index.html) */
+    --font-sans: 'Barlow', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
 
     /* Font sizes - using rem for accessibility */
     --text-2xs: 0.625rem; /* 10px */
@@ -163,9 +132,9 @@
      * BORDER RADIUS PRIMITIVES
      * ========================================================================= */
     --radius-none: 0;
-    --radius-sm: 0.25rem; /* 4px - subtle rounding */
-    --radius-DEFAULT: 0.5rem; /* 8px - standard rounding */
-    --radius-md: 0.5rem; /* 8px */
+    --radius-sm: 2px; /* inputs and tags */
+    --radius-DEFAULT: 0; /* square, like plate steel */
+    --radius-md: 4px; /* softest corner: dialogs and menus */
     --radius-lg: 0.75rem; /* 12px - prominent rounding */
     --radius-xl: 1rem; /* 16px */
     --radius-2xl: 1.5rem; /* 24px */

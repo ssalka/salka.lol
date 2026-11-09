@@ -1,0 +1,93 @@
+/**
+ * =============================================================================
+ * DESIGN SYSTEM - PATTERN UTILITIES (Neo-Industrial)
+ * =============================================================================
+ *
+ * Background patterns drawn in `hairline` or `steel`. Use one per surface,
+ * and let `brand` mark a single object of interest on top of it.
+ *
+ * - bg-dot-grid     16px dot lattice
+ * - bg-graph-paper  8px minor / 40px major ruled grid
+ * - bg-cross-grid   small crosses on a 32px grid
+ * - scanlines       horizontal sensor scanlines (overlay via ::after)
+ * - hazard-stripes  45° hazard / on-accent bands
+ * - range-rings     concentric rings around the centre
+ *
+ * Each pattern reads `--pattern-color` so it can be re-tinted per surface,
+ * e.g. `bg-graph-paper [--pattern-color:var(--steel)]`.
+ * =============================================================================
+ */
+
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--pattern-color, var(--hairline)) 1px,
+    transparent 1.5px
+  );
+  background-size: 16px 16px;
+}
+
+@utility bg-graph-paper {
+  background-image:
+    linear-gradient(var(--pattern-color, var(--hairline)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-color, var(--hairline)) 1px, transparent 1px),
+    linear-gradient(
+      color-mix(in srgb, var(--pattern-color, var(--hairline)) 40%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--pattern-color, var(--hairline)) 40%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    40px 40px,
+    40px 40px,
+    8px 8px,
+    8px 8px;
+}
+
+/* Crosses are an SVG mask on ::before so they follow the theme colour */
+@utility bg-cross-grid {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: var(--pattern-color, var(--hairline));
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M16 12v8M12 16h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+    mask-size: 32px 32px;
+  }
+}
+
+@utility scanlines {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 2px,
+      color-mix(in srgb, var(--pattern-color, var(--steel)) 12%, transparent) 2px 3px
+    );
+  }
+}
+
+@utility hazard-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--hazard) 0 12px,
+    var(--on-accent) 12px 24px
+  );
+}
+
+@utility range-rings {
+  background-image: repeating-radial-gradient(
+    circle at center,
+    transparent 0 47px,
+    var(--pattern-color, var(--hairline)) 47px 48px
+  );
+}

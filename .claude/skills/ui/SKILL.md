@@ -13,7 +13,8 @@ This skill covers the `@ssalka/ui` package - the shared UI component library and
 - **Package name**: `@ssalka/ui`
 - **Based on**: [shadcn/ui](https://ui.shadcn.com/) with [Radix UI](https://www.radix-ui.com/) primitives
 - **Styling**: Tailwind CSS v4 with CSS variables for theming
-- **Typography**: Geist font family
+- **Design system**: Neo-Industrial (Concrete light / Foundry dark)
+- **Typography**: Barlow, IBM Plex Mono, Barlow Condensed
 
 ## Design Token Architecture
 
@@ -25,10 +26,10 @@ Layer 3: COMPONENT TOKENS (in component files)
               ↑
 Layer 2: SEMANTIC TOKENS (src/tokens/semantic.css)
          e.g., --primary, --background, --success
-         Supports light/dark theming
+         Concrete (:root) and Foundry (.dark) themes
               ↑
 Layer 1: PRIMITIVE TOKENS (src/tokens/primitives.css)
-         e.g., --color-orange-500, --color-warm-200
+         e.g., --ni-concrete-brand, --ni-foundry-surface-100
          Raw values, never use directly
 ```
 
@@ -40,43 +41,103 @@ Layer 1: PRIMITIVE TOKENS (src/tokens/primitives.css)
 | Semantics   | Yes                | Yes                 |
 | Component   | Yes (internally)   | Use component props |
 
-## Semantic Color Categories
+## Neo-Industrial Design System
 
-### Core Colors
+The design system is **Neo-Industrial**: an instrument-panel look built from ruled panels, corner brackets, tick marks, mono readouts and radar geometry, on concrete and gunmetal with one safety-orange signal.
 
-- `background`, `foreground` - Page backgrounds and text
-- `surface`, `surface-raised`, `surface-sunken`, `surface-overlay` - Layered surfaces
+### Themes
 
-### Brand Colors
+| Theme        | Selector | Notes                                      |
+| ------------ | -------- | ------------------------------------------ |
+| **Concrete** | `:root`  | Light, the default                         |
+| **Foundry**  | `.dark`  | Dark, the native mode for monitoring views |
 
-- `primary` - Orange accent for primary actions (--color-orange-500)
-- `secondary` - Warm neutral for secondary actions
-- `accent` - Orange tint for emphasis and highlights
+Both themes share the same token names. The client sets `.dark` before first paint (inline script in `index.html`), from the saved setting or `prefers-color-scheme`.
 
-### Interactive States
+### Colour tokens
 
-Each brand color supports interaction states:
+| Token                            | Tailwind                                  | Usage                                                  |
+| -------------------------------- | ----------------------------------------- | ------------------------------------------------------ |
+| `surface-100` / `200` / `300`    | `bg-surface-100` … `bg-surface-300`       | Page / panels / inset wells, hover rows                |
+| `ink`, `ink-muted`               | `text-ink`, `text-ink-muted`              | Primary and secondary text                             |
+| `hairline`                       | `border-hairline`                         | 1px decorative rules; never the only edge of a control |
+| `gunmetal`, `on-gunmetal`        | `bg-gunmetal`, `text-on-gunmetal`         | Heavy fills (nav, footer) and the text on them         |
+| `steel`                          | `bg-steel`                                | Cool mid-tone for charts and secondary fills; no text  |
+| `brand`, `brand-text`            | `bg-brand`, `text-brand-text`             | Safety orange: fill once per view / orange as text     |
+| `hazard`, `patina`, `signal-red` | `bg-hazard`, `bg-patina`, `bg-signal-red` | Warning / healthy / fault. Always pair with a word     |
+| `on-accent`                      | `text-on-accent`                          | Text on brand and hazard fills                         |
+
+The shadcn tokens are mapped onto these, so existing components re-theme without edits: `background` → surface-100, `card` / `surface` → surface-200, `muted` → surface-300, `foreground` → ink, `muted-foreground` → ink-muted, `border` → hairline, `input` → ink-muted, `primary` → brand (hover: hazard), `link` → brand-text, `ring` → ink, `success` → patina, `warning` → hazard, `error` / `destructive` → signal-red, `info` → steel, `sidebar-*` → gunmetal.
+
+### Colour rules
+
+- `brand` appears **once per view**. As text, use `brand-text`; `brand` itself is a fill with `on-accent` text.
+- Status colours (`hazard`, `patina`, `signal-red`) always come with a word or a marker (see `Tag`).
+- Contrast: `ink` ≥ 9:1 and `ink-muted` ≥ 4.5:1 on every surface. Control borders use `ink-muted` (`border-input`); `hairline` is under 3:1 by design.
+- **No shadows, no gradients, no glows.** Separate layers with rules, brackets and surface steps.
+
+### Type
+
+| Family           | Tailwind       | Usage                                       |
+| ---------------- | -------------- | ------------------------------------------- |
+| Barlow           | `font-sans`    | Running text                                |
+| IBM Plex Mono    | `font-mono`    | Labels, values, controls, codes, timestamps |
+| Barlow Condensed | `font-display` | Large titles                                |
+
+All three are loaded from Google Fonts in the app's `index.html`.
+
+| Utility           | Size / line height | Notes                             |
+| ----------------- | ------------------ | --------------------------------- |
+| `text-display-xl` | 72 / 68, 700       | Hero titles (`font-display`)      |
+| `text-display-lg` | 40 / 40, 700       | Section titles (`font-display`)   |
+| `text-body`       | 15 / 22            | Running text (the `body` default) |
+| `text-body-sm`    | 13 / 18            | Captions, helper text             |
+| `text-label`      | 12 / 16, 0.08em    | Pair with `font-mono uppercase`   |
+| `text-readout`    | 32 / 32, 500       | Pair with `font-mono`             |
+
+`cn()` knows these sizes, so `text-label` won't be merged away as a colour.
+
+### Shape
+
+Square by default (`rounded` = 0). `rounded-sm` (2px) for inputs and tags, `rounded-md` (4px) for dialogs and menus. The one flourish is the 8px chamfer on primary buttons and ID plates.
+
+### Patterns
+
+From `src/styles/patterns.css`. Use one per surface; tint with `[--pattern-color:…]`.
+
+`bg-dot-grid`, `bg-graph-paper`, `bg-cross-grid`, `scanlines`, `hazard-stripes`, `range-rings`
+
+### Components
 
 ```tsx
-// Primary has: primary, primary-foreground, primary-hover, primary-active
-<button className="bg-primary hover:bg-primary-hover active:bg-primary-active" />
+import { Field } from '@ssalka/ui/components/input';
+import { Panel } from '@ssalka/ui/components/panel';
+import { Readout } from '@ssalka/ui/components/readout';
+import { Tag } from '@ssalka/ui/components/tag';
+
+// Ruled panel with corner brackets; `accent` turns the brackets brand (one per view)
+<Panel title="01 // PROFILE" meta="SEC.01 ACTIVE" accent>…</Panel>
+
+// Mono value over a ruler-tick strip
+<Readout label="LAT" value="37.7988" unit="°N" delta="+0.0001" />
+
+// Tones: neutral, brand, hazard, ok, alert (with square marker), redacted
+<Tag tone="ok">NOMINAL</Tag>
+
+// Labelled input; the hint is linked with aria-describedby
+<Field label="CALLSIGN" hint="Four letters" />
 ```
+
+`Button` keeps its variant names: `default` is the chamfered brand fill (hazard on hover), `outline` / `secondary` have an `ink-muted` border, `ghost` is `brand-text`. Labels are mono uppercase.
 
 ### Status Colors
 
 - `success`, `warning`, `error`, `info`
 - Each has: DEFAULT, foreground, background, border variants
 
-```tsx
-<Alert variant="error" /> // Uses --error-background, --error-border, --error
-```
-
 ### Sidebar Colors
 
-Dark sidebar theme with dedicated tokens:
-
-- `sidebar-background`, `sidebar-foreground`, `sidebar-border`
-- `sidebar-accent`, `sidebar-primary`, `sidebar-muted`
+Gunmetal plate: `sidebar-background`, `sidebar-foreground`, `sidebar-border`, `sidebar-accent`, `sidebar-primary`, `sidebar-muted`
 
 ## Importing Components
 
@@ -157,7 +218,7 @@ import { typography } from '@ssalka/ui/styles/typography';
 
 // Size: 7xl, 6xl, 5xl, 4xl, 3xl, 2xl, xl, lg, md, sm, xs
 // Weight: light, normal, medium, semibold, bold
-// Color: muted, red, orange, yellow, green, blue, indigo, violet
+// Color: ink, muted, brand (brand-text)
 // Variant: code, codeBlock, paragraph, placeholder
 // Caps: normal, small
 
@@ -322,6 +383,8 @@ Defined in `src/tailwind.css`:
 - `squircle` - iOS-style rounded corners (with fallback)
 - `page` - Standard page padding (`p-2 md:p-4`)
 
+Pattern utilities are in `src/styles/patterns.css` (see Patterns above).
+
 ## Spacing Guidelines
 
 | Context | Padding      | Gap           |
@@ -332,23 +395,17 @@ Defined in `src/tailwind.css`:
 
 ## Border Radius Scale
 
-| Token          | Value | Usage           |
-| -------------- | ----- | --------------- |
-| `rounded-sm`   | 4px   | Small elements  |
-| `rounded`      | 8px   | Default         |
-| `rounded-lg`   | 12px  | Cards, dialogs  |
-| `rounded-xl`   | 16px  | Marketing       |
-| `rounded-full` | pill  | Badges, avatars |
+| Token        | Value | Usage                    |
+| ------------ | ----- | ------------------------ |
+| `rounded`    | 0     | Default: panels, buttons |
+| `rounded-sm` | 2px   | Inputs and tags          |
+| `rounded-md` | 4px   | Dialogs and menus        |
 
-## Shadow Scale
+Don't use `rounded-lg` or larger in new UI.
 
-| Token       | Usage           |
-| ----------- | --------------- |
-| `shadow-xs` | Subtle lift     |
-| `shadow-sm` | Cards           |
-| `shadow-md` | Popovers        |
-| `shadow-lg` | Dropdowns       |
-| `shadow-xl` | Modals, dialogs |
+## Shadows
+
+**No shadows.** Separate layers with hairline rules, corner brackets and surface steps.
 
 ## Z-Index Scale
 
@@ -381,7 +438,7 @@ Animations automatically disable when `prefers-reduced-motion: reduce` is set.
 
 ## Dark Mode
 
-Enable via `dark` class on document root:
+Foundry (dark) is enabled via the `dark` class on the document root; Concrete (light) is the default:
 
 ```html
 <html class="dark"></html>
@@ -401,7 +458,8 @@ All semantic tokens automatically adapt. Never hardcode light/dark variants:
 
 ### Do
 
-- Use semantic tokens (`bg-primary`, `text-muted-foreground`)
+- Use semantic tokens (`bg-surface-200`, `text-ink-muted`, `bg-primary`)
+- Use `brand` once per view, and pair status colours with a word or marker
 - Import components individually for tree-shaking
 - Use component variants via props, not custom styling
 - Follow the typography scale
@@ -410,6 +468,7 @@ All semantic tokens automatically adapt. Never hardcode light/dark variants:
 ### Don't
 
 - Use raw Tailwind colors (`bg-gray-500`, `text-purple-600`)
+- Add shadows, gradients or glows
 - Use primitive tokens directly
 - Add one-off spacing values
 - Create custom colors outside the token system
@@ -424,9 +483,9 @@ packages/ui/
 │   │   ├── primitives.css    # Layer 1: Raw values
 │   │   └── semantic.css      # Layer 2: Semantic mappings
 │   ├── colors.css            # Token exports + @theme
-│   ├── fonts.css             # Font face definitions
 │   ├── tailwind.css          # Main entry point
 │   ├── styles/
+│   │   ├── patterns.css      # Pattern utilities (grids, rings, stripes)
 │   │   ├── typography.ts     # Typography CVA
 │   │   └── colors.ts         # Color type exports
 │   ├── utils.ts              # cn(), toast, etc.

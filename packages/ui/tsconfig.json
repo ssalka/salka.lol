@@ -1,14 +1,16 @@
 {
   "extends": ["../../tsconfig.json"],
 
-  "include": ["src", "tailwind.config.ts", "tailwind-preset.ts"],
+  "include": ["src", "tailwind.config.ts", "tailwind-preset.ts", "vitest.config.ts"],
 
   "compilerOptions": {
     "composite": true,
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "lib": ["DOM", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node"],
+    "skipLibCheck": true,
     "outDir": "build",
     "target": "ES2022",
     "module": "ESNext",

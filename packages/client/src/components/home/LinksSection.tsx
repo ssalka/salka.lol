@@ -1,132 +1,97 @@
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
-import { gsap } from '@/lib/gsap';
+import { SectionHeader } from '@/components/home/SectionHeader';
+import { gsap, ScrollTrigger } from '@/lib/gsap';
+
+void ScrollTrigger;
 
 const LINKS = [
   {
     label: 'GITHUB',
     description: 'Open source projects and contributions',
     href: 'https://github.com/ssalka',
-    accent: 'magenta' as const,
+    handle: 'ssalka',
   },
   {
     label: 'LINKEDIN',
     description: 'Professional profile and network',
     href: 'https://linkedin.com/in/ssalka',
-    accent: 'cyan' as const,
+    handle: 'in/ssalka',
   },
   {
     label: 'EMAIL',
     description: 'Direct communication channel',
     href: 'mailto:steven@salka.lol',
-    accent: 'acid' as const,
+    handle: 'steven@salka.lol',
   },
 ] as const;
 
-const ACCENT_STYLES = {
-  magenta: {
-    border: 'border-l-magenta-500',
-    hoverBg: 'hover:bg-magenta-950/30',
-    hoverGlow: 'hover:glow-magenta',
-    label: 'text-magenta-500 group-hover:text-magenta-400',
-    arrow: 'text-magenta-500',
-  },
-  cyan: {
-    border: 'border-l-cyan-500',
-    hoverBg: 'hover:bg-cyan-950/30',
-    hoverGlow: 'hover:glow-cyan',
-    label: 'text-cyan-400 group-hover:text-cyan-300',
-    arrow: 'text-cyan-400',
-  },
-  acid: {
-    border: 'border-l-acid-500',
-    hoverBg: 'hover:bg-acid-950/30',
-    hoverGlow: 'hover:glow-acid',
-    label: 'text-acid-500 group-hover:text-acid-400',
-    arrow: 'text-acid-500',
-  },
-} as const;
-
 export function LinksSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const linesRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useGSAP(
     () => {
-      const lines = linesRef.current.filter(Boolean);
-      if (!lines.length) return;
+      const rows = sectionRef.current?.querySelectorAll('[data-link-row]');
+      if (!rows?.length) return;
 
-      gsap.fromTo(
-        lines,
-        { opacity: 0, x: -40 },
-        {
-          opacity: 1,
-          x: 0,
-          stagger: 0.15,
-          duration: 0.6,
-          ease: 'power3.out',
+      gsap.from(rows, {
+        opacity: 0,
+        x: -12,
+        stagger: 0.1,
+        duration: 0.35,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
         },
-      );
+      });
     },
-    { dependencies: [] },
+    { scope: sectionRef },
   );
 
   return (
-    <section id="links" ref={sectionRef} className="relative px-6 py-28 md:px-12">
-      {/* Giant watermark */}
-      <div
-        className="text-warm-900/50 font-display pointer-events-none absolute top-12 left-6 select-none md:left-12"
-        style={{ fontSize: 'clamp(8rem, 20vw, 16rem)', lineHeight: 0.85 }}
-      >
-        03
-      </div>
+    <section id="links" ref={sectionRef} className="relative px-6 py-24 md:px-12">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeader index="03" title="Links" />
 
-      <div className="relative mx-auto max-w-4xl">
-        {/* Section header */}
-        <div className="mb-12 flex items-center gap-4">
-          <span className="font-mono text-xs tracking-widest text-cyan-400">03</span>
-          <div className="bg-warm-700 h-px flex-1" />
-          <span className="font-display text-foreground text-2xl tracking-wider md:text-3xl">
-            LINKS
-          </span>
-          <div className="bg-warm-700 h-px flex-1" />
-        </div>
-
-        <div className="space-y-4">
+        <ul className="border-hairline border-t">
           {LINKS.map((link, i) => {
-            const styles = ACCENT_STYLES[link.accent];
+            const isMail = link.href.startsWith('mailto:');
 
             return (
-              <a
-                key={link.label}
-                ref={el => {
-                  linesRef.current[i] = el;
-                }}
-                href={link.href}
-                target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-                rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                className={`brutal-border-l ${styles.border} ${styles.hoverBg} ${styles.hoverGlow} group flex items-center justify-between p-6 no-underline transition-all duration-300`}
-              >
-                <div>
-                  <div
-                    className={`font-display text-2xl tracking-wider md:text-3xl ${styles.label}`}
-                  >
-                    {link.label}
-                  </div>
-                  <p className="text-muted-foreground mt-1 font-mono text-xs tracking-widest">
-                    {link.description}
-                  </p>
-                </div>
-                <span
-                  className={`${styles.arrow} font-mono text-lg transition-transform group-hover:translate-x-2`}
+              <li key={link.label} data-link-row className="border-hairline border-b">
+                <a
+                  href={link.href}
+                  target={isMail ? undefined : '_blank'}
+                  rel={isMail ? undefined : 'noopener noreferrer'}
+                  className="group text-ink hover:bg-surface-200 hover:text-ink grid grid-cols-[2.5rem_1fr_auto] items-center gap-x-4 gap-y-1 px-3 py-5 no-underline transition-colors md:grid-cols-[2.5rem_10rem_1fr_auto]"
                 >
-                  &rarr;
-                </span>
-              </a>
+                  <span className="text-ink-muted text-label font-mono">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="font-mono text-base font-semibold tracking-[0.08em]">
+                    {link.label}
+                  </span>
+                  <span className="text-ink-muted col-start-2 row-start-2 md:col-start-auto md:row-start-auto">
+                    {link.description}
+                    <span className="text-body-sm hidden font-mono lg:inline">
+                      {' '}
+                      — {link.handle}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="text-ink col-start-3 row-span-2 row-start-1 font-mono text-lg transition-transform group-hover:translate-x-2 md:col-start-auto md:row-span-1 md:row-start-auto"
+                  >
+                    →
+                  </span>
+                </a>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

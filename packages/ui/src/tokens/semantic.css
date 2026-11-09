@@ -1,201 +1,203 @@
 /**
  * =============================================================================
- * DESIGN SYSTEM - SEMANTIC TOKENS
+ * DESIGN SYSTEM - SEMANTIC TOKENS (Neo-Industrial)
  * =============================================================================
  *
- * Layer 2: Meaningful design tokens that reference colors.
- * These tokens provide semantic meaning and support theming (light/dark).
+ * Layer 2: Meaningful design tokens that reference primitives.
  *
- * USE THESE in components, not colors.
+ * Two themes share the same token names:
+ * - Concrete (light, default) on `:root`
+ * - Foundry (dark) on `.dark`
+ *
+ * The Neo-Industrial names (`--surface-100`, `--ink`, `--brand`, ...) are the
+ * source of truth. The shadcn-style tokens (`--background`, `--primary`, ...)
+ * are mapped onto them so every existing component re-themes without edits.
+ *
+ * Rules (see the `ui` skill):
+ * - `brand` appears once per view; as text, use `brand-text`.
+ * - `hazard`, `patina`, `signal-red` are for status, always paired with a word or marker.
+ * - No shadows, no gradients.
+ *
+ * USE THESE in components, not primitives.
  * =============================================================================
  */
 
 @layer base {
+  /* ===========================================================================
+   * CONCRETE (light, default)
+   * =========================================================================== */
   :root {
-    /* =========================================================================
-     * CORE SEMANTIC TOKENS - Dark Mode (default)
-     * Futuristic sci-fi aesthetic with cool neutrals and cyan accent
-     * ========================================================================= */
+    color-scheme: light;
 
-    /* --- Base radius (component default) --- */
-    --radius: var(--radius-md);
+    --surface-100: var(--ni-concrete-surface-100);
+    --surface-200: var(--ni-concrete-surface-200);
+    --surface-300: var(--ni-concrete-surface-300);
+    --ink: var(--ni-concrete-ink);
+    --ink-muted: var(--ni-concrete-ink-muted);
+    --hairline: var(--ni-concrete-hairline);
+    --gunmetal: var(--ni-concrete-gunmetal);
+    --on-gunmetal: var(--ni-concrete-on-gunmetal);
+    --steel: var(--ni-concrete-steel);
+    --brand: var(--ni-concrete-brand);
+    --brand-text: var(--ni-concrete-brand-text);
+    --hazard: var(--ni-concrete-hazard);
+    --patina: var(--ni-concrete-patina);
+    --signal-red: var(--ni-concrete-signal-red);
+    --on-accent: var(--ni-concrete-on-accent);
 
-    /* --- Backgrounds & Surfaces ---
-     * Dark cool grays for a futuristic look.
-     */
-    --background: var(--color-neutral-900);
-    --foreground: var(--color-neutral-100);
+    /* Text on signal-red fills. Concrete's signal-red is too dark for on-accent. */
+    --on-signal-red: hsl(0 0% 100%);
+  }
 
-    /* Surface tiers for layered UI */
-    --surface: var(--color-neutral-800);
-    --surface-raised: var(--color-neutral-700);
-    --surface-sunken: var(--color-neutral-950);
-    --surface-overlay: var(--color-neutral-800);
+  /* ===========================================================================
+   * FOUNDRY (dark)
+   * =========================================================================== */
+  .dark {
+    color-scheme: dark;
 
-    /* --- Card --- */
-    --card: var(--color-neutral-800);
-    --card-foreground: var(--color-neutral-100);
+    --surface-100: var(--ni-foundry-surface-100);
+    --surface-200: var(--ni-foundry-surface-200);
+    --surface-300: var(--ni-foundry-surface-300);
+    --ink: var(--ni-foundry-ink);
+    --ink-muted: var(--ni-foundry-ink-muted);
+    --hairline: var(--ni-foundry-hairline);
+    --gunmetal: var(--ni-foundry-gunmetal);
+    --on-gunmetal: var(--ni-foundry-on-gunmetal);
+    --steel: var(--ni-foundry-steel);
+    --brand: var(--ni-foundry-brand);
+    --brand-text: var(--ni-foundry-brand-text);
+    --hazard: var(--ni-foundry-hazard);
+    --patina: var(--ni-foundry-patina);
+    --signal-red: var(--ni-foundry-signal-red);
+    --on-accent: var(--ni-foundry-on-accent);
 
-    /* --- Popover --- */
-    --popover: var(--color-neutral-800);
-    --popover-foreground: var(--color-neutral-100);
+    --on-signal-red: var(--ni-foundry-on-accent);
+  }
 
-    /* --- Primary ---
-     * Cyan accent for primary actions and key UI elements.
-     */
-    --primary: var(--color-cyan-500);
-    --primary-foreground: hsl(0 0% 100%);
-    --primary-hover: var(--color-cyan-400);
-    --primary-active: var(--color-cyan-600);
+  /* ===========================================================================
+   * SHADCN MAPPING
+   * Declared on both selectors so a `.dark` subtree re-resolves the aliases.
+   * =========================================================================== */
+  :root,
+  .dark {
+    /* --- Base radius (component default): square --- */
+    --radius: var(--radius-none);
 
-    /* --- Secondary ---
-     * Cool neutral for secondary actions.
-     */
-    --secondary: var(--color-neutral-700);
-    --secondary-foreground: var(--color-neutral-200);
-    --secondary-hover: var(--color-neutral-600);
-    --secondary-active: var(--color-neutral-800);
+    /* --- Backgrounds & Surfaces --- */
+    --background: var(--surface-100);
+    --foreground: var(--ink);
 
-    /* --- Accent ---
-     * Cyan tint for emphasis and visual interest (selections, highlights).
-     */
-    --accent: var(--color-cyan-900);
-    --accent-foreground: var(--color-cyan-100);
-    --accent-hover: var(--color-cyan-800);
-    --accent-active: var(--color-cyan-700);
+    --surface: var(--surface-200);
+    --surface-raised: var(--surface-300);
+    --surface-sunken: var(--surface-100);
+    --surface-overlay: var(--surface-200);
 
-    /* --- Muted ---
-     * For less prominent UI elements (disabled, placeholder).
-     */
-    --muted: var(--color-neutral-800);
-    --muted-foreground: var(--color-neutral-400);
+    --card: var(--surface-200);
+    --card-foreground: var(--ink);
 
-    /* --- Destructive ---
-     * For dangerous/destructive actions.
-     */
-    --destructive: var(--color-red-600);
-    --destructive-foreground: var(--color-red-100);
-    --destructive-hover: var(--color-red-500);
-    --destructive-active: var(--color-red-400);
+    --popover: var(--surface-200);
+    --popover-foreground: var(--ink);
+
+    /* --- Primary: safety orange fill, hazard on hover --- */
+    --primary: var(--brand);
+    --primary-foreground: var(--on-accent);
+    --primary-hover: var(--hazard);
+    --primary-active: var(--brand);
+
+    /* --- Secondary: neutral surfaces --- */
+    --secondary: var(--surface-300);
+    --secondary-foreground: var(--ink);
+    --secondary-hover: var(--surface-200);
+    --secondary-active: var(--surface-300);
+
+    /* --- Accent: hover rows, selections, pressed states --- */
+    --accent: var(--surface-300);
+    --accent-foreground: var(--ink);
+    --accent-hover: var(--surface-300);
+    --accent-active: var(--surface-300);
+
+    /* --- Muted --- */
+    --muted: var(--surface-300);
+    --muted-foreground: var(--ink-muted);
+
+    /* --- Destructive --- */
+    --destructive: var(--signal-red);
+    --destructive-foreground: var(--on-signal-red);
+    --destructive-hover: var(--signal-red);
+    --destructive-active: var(--signal-red);
 
     /* --- Borders & Inputs ---
-     * Light borders with low opacity for subtle visibility on dark backgrounds.
+     * `hairline` is decorative (under 3:1 by design).
+     * Control borders use `ink-muted` so they reach 3:1 or better.
      */
-    --border: hsl(210 10% 100% / 0.12);
-    --border-strong: hsl(210 10% 100% / 0.2);
-    --border-subtle: hsl(210 10% 100% / 0.06);
-    --input: hsl(210 10% 100% / 0.12);
-    --input-focus: var(--color-cyan-400);
+    --border: var(--hairline);
+    --border-strong: var(--ink-muted);
+    --border-subtle: var(--hairline);
+    --input: var(--ink-muted);
+    --input-focus: var(--brand-text);
 
-    /* --- Ring (Focus) ---
-     * Focus indicator ring color.
-     */
-    --ring: var(--color-cyan-500);
-    --ring-offset: var(--color-neutral-900);
+    /* --- Ring (Focus) --- */
+    --ring: var(--ink);
+    --ring-offset: var(--surface-100);
 
-    /* --- Link ---
-     * Text links throughout the UI.
-     */
-    --link: var(--color-cyan-400);
-    --link-hover: var(--color-cyan-300);
-    --link-visited: var(--color-cyan-500);
+    /* --- Link --- */
+    --link: var(--brand-text);
+    --link-hover: var(--ink);
+    --link-visited: var(--brand-text);
 
-    /* --- Overlay ---
-     * Modal/dialog backdrop overlay.
-     */
+    /* --- Overlay --- */
     --overlay: 0 0% 0%;
-    --overlay-opacity: 0.7;
+    --overlay-opacity: 0.6;
 
     /* =========================================================================
      * STATUS SEMANTIC TOKENS
+     * Status colours are fills and markers first. Pair each with a word.
      * ========================================================================= */
+    --success: var(--patina);
+    --success-foreground: var(--ink);
+    --success-background: var(--surface-200);
+    --success-border: var(--patina);
 
-    /* --- Success --- */
-    --success: var(--color-emerald-400);
-    --success-foreground: var(--color-emerald-100);
-    --success-background: var(--color-emerald-950);
-    --success-border: var(--color-emerald-800);
+    --warning: var(--hazard);
+    --warning-foreground: var(--ink);
+    --warning-background: var(--surface-200);
+    --warning-border: var(--hazard);
 
-    /* --- Warning --- */
-    --warning: var(--color-amber-400);
-    --warning-foreground: var(--color-amber-100);
-    --warning-background: var(--color-amber-950);
-    --warning-border: var(--color-amber-800);
+    --error: var(--signal-red);
+    --error-foreground: var(--ink);
+    --error-background: var(--surface-200);
+    --error-border: var(--signal-red);
 
-    /* --- Error --- */
-    --error: var(--color-red-400);
-    --error-foreground: var(--color-red-100);
-    --error-background: var(--color-red-950);
-    --error-border: var(--color-red-800);
-
-    /* --- Info --- */
-    --info: var(--color-blue-400);
-    --info-foreground: var(--color-blue-100);
-    --info-background: var(--color-blue-950);
-    --info-border: var(--color-blue-800);
+    --info: var(--steel);
+    --info-foreground: var(--ink);
+    --info-background: var(--surface-200);
+    --info-border: var(--steel);
 
     /* =========================================================================
-     * SIDEBAR SEMANTIC TOKENS
+     * SIDEBAR SEMANTIC TOKENS: gunmetal plate
      * ========================================================================= */
-    --sidebar-background: var(--color-neutral-950);
-    --sidebar-foreground: var(--color-neutral-100);
-    --sidebar-border: var(--color-neutral-800);
-    --sidebar-accent: var(--color-cyan-800);
-    --sidebar-accent-foreground: var(--color-cyan-100);
-    --sidebar-ring: var(--color-cyan-500);
-    --sidebar-primary: var(--color-cyan-500);
-    --sidebar-primary-foreground: var(--color-neutral-950);
-    --sidebar-muted: var(--color-neutral-700);
-    --sidebar-muted-foreground: var(--color-neutral-400);
-
-    /* =========================================================================
-     * BRUTAL ACCENT TOKENS
-     * ========================================================================= */
-    --brutal-primary: var(--color-magenta-500);
-    --brutal-primary-glow: var(--color-magenta-400);
-    --brutal-primary-foreground: var(--color-magenta-100);
-    --brutal-secondary: var(--color-cyan-400);
-    --brutal-secondary-glow: var(--color-cyan-300);
-    --brutal-secondary-foreground: var(--color-cyan-100);
-    --brutal-tertiary: var(--color-acid-500);
-    --brutal-tertiary-glow: var(--color-acid-400);
-    --brutal-tertiary-foreground: var(--color-acid-100);
+    --sidebar-background: var(--gunmetal);
+    --sidebar-foreground: var(--on-gunmetal);
+    --sidebar-border: var(--hairline);
+    --sidebar-accent: var(--surface-300);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-ring: var(--on-gunmetal);
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: var(--on-accent);
+    --sidebar-muted: var(--gunmetal);
+    --sidebar-muted-foreground: var(--on-gunmetal);
 
     /* =========================================================================
      * DATA VISUALIZATION TOKENS
+     * Structural tones first; brand marks the one series that matters.
      * ========================================================================= */
-    --chart-1: var(--color-purple-500);
-    --chart-2: var(--color-violet-500);
-    --chart-3: var(--color-pink-500);
-    --chart-4: var(--color-cyan-400);
-    --chart-5: var(--color-yellow-400);
-    --chart-6: var(--color-emerald-500);
-    --chart-7: var(--color-blue-500);
-  }
-
-  /* ===========================================================================
-   * .dark class — alias for compatibility (root is already dark)
-   * =========================================================================== */
-  .dark {
-    /* No overrides needed — :root is already dark */
-  }
-
-  /* ===========================================================================
-   * .brutal class — warm industrial override scope
-   * =========================================================================== */
-  .brutal {
-    --background: var(--color-warm-900);
-    --foreground: var(--color-warm-100);
-    --border: hsl(28 10% 100% / 0.1);
-    --border-strong: hsl(28 10% 100% / 0.18);
-    --border-subtle: hsl(28 10% 100% / 0.05);
-    --muted: var(--color-warm-800);
-    --muted-foreground: var(--color-warm-400);
-    --surface: var(--color-warm-800);
-    --surface-raised: var(--color-warm-700);
-    --surface-sunken: var(--color-warm-950);
-    --card: var(--color-warm-800);
-    --card-foreground: var(--color-warm-100);
+    --chart-1: var(--brand);
+    --chart-2: var(--steel);
+    --chart-3: var(--patina);
+    --chart-4: var(--hazard);
+    --chart-5: var(--ink-muted);
+    --chart-6: var(--gunmetal);
+    --chart-7: var(--signal-red);
   }
 }
 

@@ -12,8 +12,8 @@
  * 3. Components - defined in component files
  *
  * Usage in Tailwind classes:
- * - bg-primary, text-foreground, border-border (semantic)
- * - bg-electric-aqua-500, text-amber-flame-900 (brand ramps)
+ * - bg-primary, text-foreground, border-border (shadcn semantic)
+ * - bg-surface-200, text-ink-muted, border-hairline, bg-brand, text-brand-text (Neo-Industrial)
  * =============================================================================
  */
 
@@ -42,10 +42,30 @@ const preset: Partial<Config> = {
         foreground: 'var(--foreground)',
         surface: {
           DEFAULT: 'var(--surface)',
+          100: 'var(--surface-100)',
+          200: 'var(--surface-200)',
+          300: 'var(--surface-300)',
           raised: 'var(--surface-raised)',
           sunken: 'var(--surface-sunken)',
           overlay: 'var(--surface-overlay)',
         },
+
+        /* =====================================================================
+         * NEO-INDUSTRIAL COLORS
+         * The design system's own names. Defined in semantic.css.
+         * ===================================================================== */
+        ink: {
+          DEFAULT: 'var(--ink)',
+          muted: 'var(--ink-muted)',
+        },
+        hairline: 'var(--hairline)',
+        gunmetal: 'var(--gunmetal)',
+        'on-gunmetal': 'var(--on-gunmetal)',
+        steel: 'var(--steel)',
+        hazard: 'var(--hazard)',
+        patina: 'var(--patina)',
+        'signal-red': 'var(--signal-red)',
+        'on-accent': 'var(--on-accent)',
 
         card: {
           DEFAULT: 'var(--card)',
@@ -113,95 +133,9 @@ const preset: Partial<Config> = {
 
         overlay: 'var(--overlay) / var(--overlay-opacity)',
 
-        /* =====================================================================
-         * BRAND COLORS
-         * Futuristic palette with cool neutrals and cyan accent.
-         * ===================================================================== */
-
-        cyan: {
-          DEFAULT: 'var(--color-cyan-500)',
-          50: 'var(--color-cyan-50)',
-          100: 'var(--color-cyan-100)',
-          200: 'var(--color-cyan-200)',
-          300: 'var(--color-cyan-300)',
-          400: 'var(--color-cyan-400)',
-          500: 'var(--color-cyan-500)',
-          600: 'var(--color-cyan-600)',
-          700: 'var(--color-cyan-700)',
-          800: 'var(--color-cyan-800)',
-          900: 'var(--color-cyan-900)',
-          950: 'var(--color-cyan-950)',
-        },
-        neutral: {
-          DEFAULT: 'var(--color-neutral-500)',
-          50: 'var(--color-neutral-50)',
-          100: 'var(--color-neutral-100)',
-          200: 'var(--color-neutral-200)',
-          300: 'var(--color-neutral-300)',
-          400: 'var(--color-neutral-400)',
-          500: 'var(--color-neutral-500)',
-          600: 'var(--color-neutral-600)',
-          700: 'var(--color-neutral-700)',
-          800: 'var(--color-neutral-800)',
-          900: 'var(--color-neutral-900)',
-          950: 'var(--color-neutral-950)',
-        },
-
-        magenta: {
-          DEFAULT: 'var(--color-magenta-500)',
-          50: 'var(--color-magenta-50)',
-          100: 'var(--color-magenta-100)',
-          200: 'var(--color-magenta-200)',
-          300: 'var(--color-magenta-300)',
-          400: 'var(--color-magenta-400)',
-          500: 'var(--color-magenta-500)',
-          600: 'var(--color-magenta-600)',
-          700: 'var(--color-magenta-700)',
-          800: 'var(--color-magenta-800)',
-          900: 'var(--color-magenta-900)',
-          950: 'var(--color-magenta-950)',
-        },
-        acid: {
-          DEFAULT: 'var(--color-acid-500)',
-          50: 'var(--color-acid-50)',
-          100: 'var(--color-acid-100)',
-          200: 'var(--color-acid-200)',
-          300: 'var(--color-acid-300)',
-          400: 'var(--color-acid-400)',
-          500: 'var(--color-acid-500)',
-          600: 'var(--color-acid-600)',
-          700: 'var(--color-acid-700)',
-          800: 'var(--color-acid-800)',
-          900: 'var(--color-acid-900)',
-          950: 'var(--color-acid-950)',
-        },
-        warm: {
-          DEFAULT: 'var(--color-warm-500)',
-          50: 'var(--color-warm-50)',
-          100: 'var(--color-warm-100)',
-          200: 'var(--color-warm-200)',
-          300: 'var(--color-warm-300)',
-          400: 'var(--color-warm-400)',
-          500: 'var(--color-warm-500)',
-          600: 'var(--color-warm-600)',
-          700: 'var(--color-warm-700)',
-          800: 'var(--color-warm-800)',
-          900: 'var(--color-warm-900)',
-          950: 'var(--color-warm-950)',
-        },
-        brutal: {
-          primary: 'var(--brutal-primary)',
-          'primary-glow': 'var(--brutal-primary-glow)',
-          'primary-foreground': 'var(--brutal-primary-foreground)',
-          secondary: 'var(--brutal-secondary)',
-          'secondary-glow': 'var(--brutal-secondary-glow)',
-          'secondary-foreground': 'var(--brutal-secondary-foreground)',
-          tertiary: 'var(--brutal-tertiary)',
-          'tertiary-glow': 'var(--brutal-tertiary-glow)',
-          'tertiary-foreground': 'var(--brutal-tertiary-foreground)',
-        },
-
         brand: {
+          DEFAULT: 'var(--brand)',
+          text: 'var(--brand-text)',
           github: '#333',
         },
 
@@ -254,6 +188,20 @@ const preset: Partial<Config> = {
           muted: 'var(--sidebar-muted)',
           'muted-foreground': 'var(--sidebar-muted-foreground)',
         },
+      },
+
+      /* =======================================================================
+       * TYPE SCALE (Neo-Industrial)
+       * `text-label` and `text-readout` are mono styles: pair them with
+       * `font-mono` (and `uppercase` for labels).
+       * ======================================================================= */
+      fontSize: {
+        'display-xl': ['72px', { lineHeight: '68px', fontWeight: '700' }],
+        'display-lg': ['40px', { lineHeight: '40px', fontWeight: '700' }],
+        body: ['15px', { lineHeight: '22px' }],
+        'body-sm': ['13px', { lineHeight: '18px' }],
+        label: ['12px', { lineHeight: '16px', letterSpacing: '0.08em', fontWeight: '600' }],
+        readout: ['32px', { lineHeight: '32px', fontWeight: '500' }],
       },
 
       /* =======================================================================
@@ -433,9 +381,9 @@ const preset: Partial<Config> = {
      * FONT FAMILY (override, not extend)
      * ========================================================================= */
     fontFamily: {
-      sans: ['Geist', ...defaultTheme.fontFamily.sans],
-      mono: ['Geist-Mono', ...defaultTheme.fontFamily.mono],
-      display: ['Bebas Neue', 'Oswald', ...defaultTheme.fontFamily.sans],
+      sans: ['Barlow', 'system-ui', 'sans-serif'],
+      mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono],
+      display: ['Barlow Condensed', 'Arial Narrow', 'system-ui', 'sans-serif'],
     },
   },
 };

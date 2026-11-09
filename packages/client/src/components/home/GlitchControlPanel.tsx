@@ -1,8 +1,11 @@
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
+import { Button } from '@ssalka/ui/components/button';
+import { Panel } from '@ssalka/ui/components/panel';
+import { Readout } from '@ssalka/ui/components/readout';
 import { Switch } from '@ssalka/ui/components/switch';
-import { cn } from '@ssalka/ui/utils';
+import { Tag } from '@ssalka/ui/components/tag';
 
 import { useGlitchStore, type GlitchParams } from '@/state/glitch';
 
@@ -20,9 +23,10 @@ const SLIDERS: {
 ];
 
 const TOGGLES: {
-  key: keyof Pick<GlitchParams, 'colorShift' | 'doublePulse' | 'cssGlitch'>;
+  key: keyof Pick<GlitchParams, 'enabled' | 'colorShift' | 'doublePulse' | 'cssGlitch'>;
   label: string;
 }[] = [
+  { key: 'enabled', label: 'SIGNAL' },
   { key: 'colorShift', label: 'COLOR_SHIFT' },
   { key: 'doublePulse', label: 'DBL_PULSE' },
   { key: 'cssGlitch', label: 'CSS_GLITCH' },
@@ -54,10 +58,17 @@ function GlitchSlider({
   }, [storeValue]);
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-warm-500 w-[72px] shrink-0 text-[10px] tracking-widest">{label}</span>
+    <div className="flex flex-col gap-2">
+      <Readout
+        label={label}
+        value={localValue.toFixed(step < 1 ? 1 : 0)}
+        unit={unit}
+        className="min-w-0"
+        valueClassName="text-xl leading-6"
+      />
       <SliderPrimitive.Root
-        className="relative flex h-4 flex-1 touch-none items-center select-none"
+        aria-label={label}
+        className="relative flex h-4 w-full touch-none items-center select-none"
         min={min}
         max={max}
         step={step}
@@ -71,15 +82,37 @@ function GlitchSlider({
           onCommit(v);
         }}
       >
-        <SliderPrimitive.Track className="bg-warm-800 relative h-[2px] grow">
-          <SliderPrimitive.Range className="bg-magenta-500/70 absolute h-full" />
+        <SliderPrimitive.Track className="bg-ink-muted relative h-px grow">
+          <SliderPrimitive.Range className="bg-ink absolute h-0.5 -translate-y-px" />
         </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb className="bg-magenta-500 block size-2.5 rounded-full shadow-[0_0_6px_hsl(330_100%_48%/0.4)] outline-none" />
+        <SliderPrimitive.Thumb className="bg-surface-100 border-ink focus-visible:outline-ring block size-3 border-2 focus-visible:outline-2 focus-visible:outline-offset-2" />
       </SliderPrimitive.Root>
-      <span className="text-acid-500 w-10 text-right font-mono text-[10px]">
-        {localValue.toFixed(step < 1 ? 1 : 0)}
-        {unit}
-      </span>
+    </div>
+  );
+}
+
+function ToggleRow({
+  label,
+  checked,
+  onCheckedChange,
+}: {
+  label: string;
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
+}) {
+  const id = useId();
+
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <label htmlFor={id} className="text-label text-ink-muted font-mono uppercase">
+        {label}
+      </label>
+      <div className="flex items-center gap-2">
+        <span className="text-ink-muted w-7 text-right font-mono text-[11px]">
+          {checked ? 'ON' : 'OFF'}
+        </span>
+        <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
+      </div>
     </div>
   );
 }
@@ -91,44 +124,26 @@ export function GlitchControlPanel() {
 
   if (!open) {
     return (
-      <button
+      <Button
+        variant="outline"
+        size="xs"
         onClick={() => setOpen(true)}
-        className="text-warm-500 hover:text-magenta-500 hover:border-magenta-500/40 border-warm-700/60 bg-warm-900/90 fixed right-4 bottom-4 z-50 border px-2.5 py-1.5 font-mono text-[10px] tracking-widest backdrop-blur-md transition-colors"
+        className="bg-surface-100 fixed right-4 bottom-4 z-50"
       >
         [SIG_CTRL]
-      </button>
+      </Button>
     );
   }
 
   return (
-    <div className="crosshair border-warm-700/60 bg-warm-900/95 fixed right-4 bottom-4 z-50 w-72 border backdrop-blur-md">
-      {/* Header */}
-      <div className="border-warm-700/40 flex items-center justify-between border-b px-3 py-2">
-        <span className="text-magenta-500 font-mono text-[10px] tracking-widest">SIGNAL_CTRL</span>
-        <div className="flex gap-2">
-          <button
-            onClick={() => randomize()}
-            className="text-warm-500 font-mono text-[10px] tracking-widest transition-colors hover:text-cyan-400"
-          >
-            [RND]
-          </button>
-          <button
-            onClick={() => resetDefaults()}
-            className="text-warm-500 hover:text-acid-500 font-mono text-[10px] tracking-widest transition-colors"
-          >
-            [RST]
-          </button>
-          <button
-            onClick={() => setOpen(false)}
-            className="text-warm-500 hover:text-foreground font-mono text-[10px] tracking-widest transition-colors"
-          >
-            [X]
-          </button>
-        </div>
-      </div>
-
-      {/* Sliders */}
-      <div className="flex flex-col gap-3 px-3 pt-3 pb-2">
+    <Panel
+      aria-label="Signal control"
+      title="SIGNAL_CTRL"
+      meta={<Tag tone={store.enabled ? 'ok' : 'neutral'}>{store.enabled ? 'LIVE' : 'STANDBY'}</Tag>}
+      className="fixed right-4 bottom-4 z-50 w-72"
+      bodyClassName="flex flex-col gap-4 p-4"
+    >
+      <div className="flex flex-col gap-4">
         {SLIDERS.map(({ key, label, min, max, step, unit }) => (
           <GlitchSlider
             key={key}
@@ -143,32 +158,30 @@ export function GlitchControlPanel() {
         ))}
       </div>
 
-      {/* Divider */}
-      <div className="bg-warm-700/40 mx-3 h-px" />
+      <div className="bg-hairline h-px" />
 
-      {/* Toggles */}
-      <div className="flex flex-col gap-2.5 px-3 pt-2 pb-3">
+      <div className="flex flex-col gap-3">
         {TOGGLES.map(({ key, label }) => (
-          <div key={key} className="flex items-center justify-between">
-            <span className="text-warm-500 text-[10px] tracking-widest">{label}</span>
-            <div className="flex items-center gap-2">
-              <span
-                className={cn(
-                  'font-mono text-[9px] tracking-widest',
-                  store[key] ? 'text-acid-500' : 'text-warm-600',
-                )}
-              >
-                {store[key] ? 'ON' : 'OFF'}
-              </span>
-              <Switch
-                checked={store[key]}
-                onCheckedChange={v => setParam(key, v)}
-                className="data-[state=checked]:bg-magenta-500/80 data-[state=unchecked]:bg-warm-700 h-4 w-7"
-              />
-            </div>
-          </div>
+          <ToggleRow
+            key={key}
+            label={label}
+            checked={store[key]}
+            onCheckedChange={v => setParam(key, v)}
+          />
         ))}
       </div>
-    </div>
+
+      <div className="flex gap-2">
+        <Button variant="outline" size="xs" onClick={() => randomize()}>
+          RND
+        </Button>
+        <Button variant="outline" size="xs" onClick={() => resetDefaults()}>
+          RST
+        </Button>
+        <Button variant="ghost" size="xs" className="ml-auto" onClick={() => setOpen(false)}>
+          CLOSE
+        </Button>
+      </div>
+    </Panel>
   );
 }
