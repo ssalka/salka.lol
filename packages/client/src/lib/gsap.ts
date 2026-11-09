@@ -10,7 +10,8 @@ if (
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 ) {
-  gsap.globalTimeline.timeScale(Infinity);
+  // Finish every tween near-instantly. NOTE `Infinity` leaves ScrollTrigger tweens stuck at their start state
+  gsap.globalTimeline.timeScale(1000);
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
 

@@ -31,7 +31,9 @@ export const useSettingsStore = create<SettingsStore>()(
   persist(
     immer(set => ({
       settingsOpen: false,
-      darkMode: false,
+      // index.html sets the initial theme class before first paint
+      darkMode:
+        typeof document !== 'undefined' && document.documentElement.classList.contains('dark'),
       trackingEnabled: false,
 
       actions: {
@@ -61,8 +63,8 @@ export const useSettingsStore = create<SettingsStore>()(
       name: 'app-settings',
       partialize: state => ({ darkMode: state.darkMode }),
       onRehydrateStorage: () => state => {
-        // Apply dark mode on initial load from persisted state
-        if (state?.darkMode) {
+        // Apply the persisted theme on initial load
+        if (state) {
           applyDarkMode(state.darkMode);
         }
       },

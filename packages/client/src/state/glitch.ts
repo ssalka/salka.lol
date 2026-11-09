@@ -3,13 +3,15 @@ import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 export interface GlitchParams {
+  /** Master switch for the signal glitch (off by default) */
+  enabled: boolean;
   /** How often glitch fires (seconds) */
   glitchInterval: number;
   /** Character movement distance (px) */
   displacement: number;
   /** Max blur during bursts (px) */
   blurIntensity: number;
-  /** Magenta/cyan color flicker */
+  /** Brand/patina colour flicker */
   colorShift: boolean;
   /** Second mini blur burst */
   doublePulse: boolean;
@@ -18,6 +20,7 @@ export interface GlitchParams {
 }
 
 export const GLITCH_DEFAULTS: GlitchParams = {
+  enabled: false,
   glitchInterval: 4,
   displacement: 3,
   blurIntensity: 4,
@@ -60,6 +63,7 @@ export const useGlitchStore = create<GlitchStore>()(
           };
 
           set({
+            enabled: true,
             glitchInterval: rand(1, 10, 0.5),
             displacement: rand(0, 10, 0.5),
             blurIntensity: rand(0, 8, 0.5),

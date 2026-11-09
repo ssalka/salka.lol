@@ -1,18 +1,40 @@
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
+import { Button } from '@ssalka/ui/components/button';
+import { Panel } from '@ssalka/ui/components/panel';
+import { Tag, type TagTone } from '@ssalka/ui/components/tag';
+
+import { SectionHeader } from '@/components/home/SectionHeader';
 import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 void ScrollTrigger;
 
-const PROJECTS = [
+type ProjectStatus = 'LIVE' | 'STABLE' | 'DEV';
+
+const STATUS_TONES: Record<ProjectStatus, TagTone> = {
+  LIVE: 'ok',
+  STABLE: 'neutral',
+  DEV: 'hazard',
+};
+
+interface Project {
+  name: string;
+  description: string;
+  tags: string[];
+  href: string;
+  status: ProjectStatus;
+  /** The one featured project; its brackets turn brand */
+  featured?: boolean;
+}
+
+const PROJECTS: Project[] = [
   {
     name: 'ALUNA',
     description: 'AI-powered candidate assessments with deep research capabilities.',
     tags: ['AI', 'React', 'tRPC'],
     href: 'https://github.com/ssalka/aluna',
     status: 'DEV',
-    accent: 'cyan' as const,
   },
   {
     name: 'PROJECT-STARTER',
@@ -20,45 +42,17 @@ const PROJECTS = [
     tags: ['TypeScript', 'tRPC', 'shadcn/ui'],
     href: 'https://github.com/ssalka/project-starter',
     status: 'STABLE',
-    accent: 'acid' as const,
   },
   {
     name: 'SALKA.LOL',
     description:
-      'This site. A brutalist-cyberpunk personal homepage with GSAP animations and industrial design.',
+      'This site. An instrument-console personal homepage built on the Neo-Industrial design system, with GSAP animations.',
     tags: ['React', 'GSAP', 'Tailwind'],
     href: 'https://github.com/ssalka/salka.lol',
     status: 'LIVE',
-    accent: 'magenta' as const,
+    featured: true,
   },
-] as const;
-
-const ACCENT_STYLES = {
-  magenta: {
-    border: 'border-t-magenta-500',
-    hoverBorder: 'group-hover:border-t-magenta-400',
-    glow: 'group-hover:glow-magenta',
-    status: 'text-magenta-400',
-    tag: 'border-magenta-800/40 text-magenta-400',
-    arrow: 'text-magenta-500 group-hover:text-magenta-400',
-  },
-  cyan: {
-    border: 'border-t-cyan-500',
-    hoverBorder: 'group-hover:border-t-cyan-400',
-    glow: 'group-hover:glow-cyan',
-    status: 'text-cyan-400',
-    tag: 'border-cyan-800/40 text-cyan-400',
-    arrow: 'text-cyan-500 group-hover:text-cyan-400',
-  },
-  acid: {
-    border: 'border-t-acid-500',
-    hoverBorder: 'group-hover:border-t-acid-400',
-    glow: 'group-hover:glow-acid',
-    status: 'text-acid-400',
-    tag: 'border-acid-800/40 text-acid-400',
-    arrow: 'text-acid-500 group-hover:text-acid-400',
-  },
-} as const;
+];
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -68,97 +62,74 @@ export function ProjectsSection() {
       const cards = sectionRef.current?.querySelectorAll('[data-project-card]');
       if (!cards?.length) return;
 
-      gsap.from(cards, {
-        opacity: 0,
-        y: 40,
-        stagger: 0.12,
-        duration: 0.7,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
+      gsap.fromTo(
+        cards,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          stagger: 0.12,
+          duration: 0.6,
+          ease: 'power2.inOut',
+          clearProps: 'clipPath',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
         },
-      });
+      );
     },
     { scope: sectionRef },
   );
 
   return (
-    <section id="projects" ref={sectionRef} className="relative px-6 py-28 md:px-12">
-      {/* Giant watermark */}
-      <div
-        className="text-warm-900/50 font-display pointer-events-none absolute top-12 right-6 select-none md:right-12"
-        style={{ fontSize: 'clamp(8rem, 20vw, 16rem)', lineHeight: 0.85 }}
-      >
-        02
-      </div>
-
-      <div className="relative mx-auto max-w-5xl">
-        {/* Section header */}
-        <div className="mb-12 flex items-center gap-4">
-          <span className="text-magenta-500 font-mono text-xs tracking-widest">02</span>
-          <div className="bg-warm-700 h-px flex-1" />
-          <span className="font-display text-foreground text-2xl tracking-wider md:text-3xl">
-            PROJECTS
-          </span>
-          <div className="bg-warm-700 h-px flex-1" />
-        </div>
+    <section id="projects" ref={sectionRef} className="relative px-6 py-24 md:px-12">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader index="02" title="Projects" />
 
         <div className="grid gap-6 md:grid-cols-3">
-          {PROJECTS.map((project, i) => {
-            const styles = ACCENT_STYLES[project.accent];
-
-            return (
-              <a
-                key={project.name}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group no-underline"
-                data-project-card
+          {PROJECTS.map((project, i) => (
+            <div key={project.name} data-project-card className="flex">
+              <Panel
+                accent={project.featured}
+                title={`PRJ_${String(i).padStart(2, '0')}`}
+                meta={<Tag tone={STATUS_TONES[project.status]}>{project.status}</Tag>}
+                className="flex w-full flex-col"
+                bodyClassName="flex flex-1 flex-col p-5"
               >
-                <div
-                  className={`brutal-border-t ${styles.border} ${styles.hoverBorder} ${styles.glow} bg-warm-800/60 h-full p-6 transition-all duration-300 group-hover:-translate-y-1`}
-                >
-                  {/* Data readout */}
-                  <div className="mb-4 flex items-center justify-between font-mono text-[10px] tracking-widest">
-                    <span className="text-muted-foreground">PRJ_{String(i).padStart(2, '0')}</span>
-                    <span className={styles.status}>{project.status}</span>
-                  </div>
+                <h3 className="font-display text-ink mb-2 text-3xl leading-none font-bold uppercase">
+                  {project.name}
+                </h3>
 
-                  {/* Project name */}
-                  <h3 className="font-display text-foreground mb-2 text-xl tracking-wide">
-                    {project.name}
-                  </h3>
+                <p className="text-ink-muted mb-5">{project.description}</p>
 
-                  {/* Description */}
-                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
+                <ul aria-label="Stack" className="mb-6 flex flex-wrap gap-2">
+                  {project.tags.map(tag => (
+                    <li key={tag}>
+                      <Tag>{tag}</Tag>
+                    </li>
+                  ))}
+                </ul>
 
-                  {/* Tags */}
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {project.tags.map(tag => (
-                      <span
-                        key={tag}
-                        className={`border px-2 py-0.5 font-mono text-[10px] tracking-wider ${styles.tag}`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* View link */}
-                  <div
-                    className={`${styles.arrow} font-mono text-xs tracking-widest transition-transform group-hover:translate-x-1`}
+                <Button asChild variant="ghost" size="sm" className="group mt-auto self-start">
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${project.name} on GitHub`}
                   >
-                    VIEW --&gt;
-                  </div>
-                </div>
-              </a>
-            );
-          })}
+                    VIEW
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </a>
+                </Button>
+              </Panel>
+            </div>
+          ))}
         </div>
       </div>
     </section>

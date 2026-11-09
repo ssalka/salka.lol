@@ -29,24 +29,28 @@ export function useTextReveal(ref: RefObject<HTMLElement | null>) {
   );
 }
 
-/** ScrollTrigger fade + translate on scroll */
+/** ScrollTrigger clip-path wipe (left to right) on scroll */
 export function useScrollReveal(ref: RefObject<HTMLElement | null>) {
   useGSAP(
     () => {
       const el = ref.current;
       if (!el) return;
 
-      gsap.from(el, {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
+      gsap.fromTo(
+        el,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.6,
+          ease: 'power2.inOut',
+          clearProps: 'clipPath',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
         },
-      });
+      );
     },
     { dependencies: [ref] },
   );
@@ -77,61 +81,74 @@ interface GlitchTextOptions {
   delay?: number;
 }
 
-/** SplitText chars slam in from random positions + periodic glitch flicker */
+/** Reads a theme colour token, so the flicker follows Concrete / Foundry */
+const readToken = (name: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+/**
+ * Clip-path wipe reveal, plus a periodic signal glitch when enabled in the glitch store.
+ * The glitch is off by default; its colour flicker uses `brand` / `patina`.
+ */
 export function useGlitchText(ref: RefObject<HTMLElement | null>, options: GlitchTextOptions = {}) {
   const { delay = 0 } = options;
 
+  const enabled = useGlitchStore(s => s.enabled);
   const glitchInterval = useGlitchStore(s => s.glitchInterval);
   const displacement = useGlitchStore(s => s.displacement);
   const blurIntensity = useGlitchStore(s => s.blurIntensity);
   const colorShift = useGlitchStore(s => s.colorShift);
   const doublePulse = useGlitchStore(s => s.doublePulse);
 
+  // Initial wipe-in (runs once)
   useGSAP(
     () => {
       const el = ref.current;
       if (!el) return;
 
-      // Respect reduced motion
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        gsap.set(el, { opacity: 1 });
+      gsap.fromTo(
+        el,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.7,
+          ease: 'power3.inOut',
+          delay,
+          clearProps: 'clipPath',
+        },
+      );
+    },
+    { dependencies: [ref, delay] },
+  );
 
-        return;
-      }
+  // Periodic glitch flicker
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el || !enabled) return;
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       const split = new SplitText(el, { type: 'chars' });
+      const flickerColors = [readToken('--brand'), readToken('--patina')];
 
-      // Initial slam-in from random positions
-      gsap.from(split.chars, {
-        opacity: 0,
-        x: () => gsap.utils.random(-80, 80),
-        y: () => gsap.utils.random(-40, 40),
-        rotation: () => gsap.utils.random(-15, 15),
-        stagger: 0.03,
-        duration: 0.5,
-        ease: 'power4.out',
-        delay,
-      });
-
-      // Periodic glitch flicker
       const glitchTl = gsap.timeline({
         repeat: -1,
         repeatDelay: glitchInterval,
-        delay: delay + 1.5,
+        delay: 1,
       });
 
-      // First burst: displacement + color + blur
+      // First burst: displacement + colour + blur
       glitchTl.to(split.chars, {
         x: () => gsap.utils.random(-displacement, displacement),
         y: () => gsap.utils.random(-displacement * 0.67, displacement * 0.67),
         ...(colorShift && {
-          color: () => (gsap.utils.random(0, 1) > 0.5 ? 'hsl(330 100% 48%)' : 'hsl(185 100% 42%)'),
+          color: () => gsap.utils.random(flickerColors),
         }),
         filter: () => `blur(${gsap.utils.random(blurIntensity * 0.5, blurIntensity)}px)`,
         duration: 0.05,
         stagger: { each: 0.01, from: 'random' },
       });
-      // Partial recovery
+      // Recovery
       glitchTl.to(split.chars, {
         x: 0,
         y: 0,
@@ -142,7 +159,7 @@ export function useGlitchText(ref: RefObject<HTMLElement | null>, options: Glitc
       });
 
       if (doublePulse) {
-        // Double-pulse: second mini blur burst for "signal lock" feel
+        // Second mini blur burst for a "signal lock" feel
         glitchTl.to(
           split.chars,
           {
@@ -153,24 +170,26 @@ export function useGlitchText(ref: RefObject<HTMLElement | null>, options: Glitc
           },
           '+=0.15',
         );
-        // Final snap to sharp
         glitchTl.to(split.chars, {
           filter: 'blur(0px)',
           duration: 0.06,
           stagger: { each: 0.008, from: 'random' },
         });
       }
+
+      return () => split.revert();
     },
     {
       dependencies: [
         ref,
-        delay,
+        enabled,
         glitchInterval,
         displacement,
         blurIntensity,
         colorShift,
         doublePulse,
       ],
+      revertOnUpdate: true,
     },
   );
 }
