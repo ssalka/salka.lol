@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T00:00:00Z",
+  "title": "Design System: salka.lol",
+  "extensions": {
+    "colorMeta": {
+      "concrete-brand": { "role": "primary", "displayName": "Safety Orange", "canonical": "#ff5a1f", "tonalRamp": ["#3d1405", "#6b220a", "#9a310d", "#c94111", "#ff5a1f", "#ff8a5c", "#ffb999", "#ffe3d6"] },
+      "concrete-hazard": { "role": "secondary", "displayName": "Hazard Yellow", "canonical": "#f2c200", "tonalRamp": ["#3a2f00", "#5e4c00", "#8a7000", "#b89500", "#f2c200", "#ffd84d", "#ffe78c", "#fff5cc"] },
+      "concrete-patina": { "role": "secondary", "displayName": "Patina Teal", "canonical": "#2f7f74", "tonalRamp": ["#0c211e", "#143a35", "#1e544c", "#286d64", "#2f7f74", "#4fb3a5", "#8ad1c7", "#d3eeea"] },
+      "concrete-signal-red": { "role": "secondary", "displayName": "Signal Red", "canonical": "#c4281c", "tonalRamp": ["#330a07", "#5a120c", "#851b12", "#ab2318", "#c4281c", "#ff5a4d", "#ff958c", "#ffd6d2"] },
+      "concrete-gunmetal": { "role": "neutral", "displayName": "Gunmetal", "canonical": "#2c3338", "tonalRamp": ["#16181a", "#2c3338", "#3a434a", "#5b6770", "#8c99a3", "#b9b8b2", "#d9d8d4", "#ecebe6"] },
+      "concrete-surface-100": { "role": "neutral", "displayName": "Poured Concrete", "canonical": "#d9d8d4" },
+      "concrete-ink": { "role": "neutral", "displayName": "Carbon Ink", "canonical": "#16181a" },
+      "foundry-surface-100": { "role": "neutral", "displayName": "Foundry Soot", "canonical": "#16181a" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The name and hero titles; Barlow Condensed 700 uppercase." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles and project names." },
+      "body": { "displayName": "Body", "purpose": "Running text in Barlow." },
+      "readout": { "displayName": "Readout", "purpose": "Live instrument values, tabular numerals." },
+      "label": { "displayName": "Label", "purpose": "Mono uppercase labels, tags, buttons, nav." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "wipe-in", "value": "clip-path inset(0 100% 0 0) → inset(0 0 0 0), 0.6s power3.inOut", "purpose": "Reveal of names, ID plate, project cards." },
+      { "name": "tick-in", "value": "opacity 0, y 8px → 0, 0.3s power2.out, stagger 0.08s", "purpose": "Readouts and link rows arriving." },
+      { "name": "state-change", "value": "150ms colors", "purpose": "Hover and active state transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Chamfered safety-orange fill; hazard on hover.",
+      "html": "<button class=\"ds-btn-primary\">TRANSMIT</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; background: var(--brand, #ff5a1f); color: var(--on-accent, #16181a); border: 1px solid transparent; border-radius: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%); transition: background-color 150ms; } .ds-btn-primary:hover { background: var(--hazard, #f2c200); } .ds-btn-primary:focus-visible { clip-path: none; outline: 2px solid var(--ink, #16181a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Transparent with ink-muted border.",
+      "html": "<button class=\"ds-btn-outline\">CANCEL</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; height: 40px; padding: 0 16px; background: transparent; color: var(--ink, #16181a); border: 1px solid var(--ink-muted, #464a4e); border-radius: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background-color 150ms; } .ds-btn-outline:hover { background: var(--surface-300, #b9b8b2); } .ds-btn-outline:focus-visible { outline: 2px solid var(--ink, #16181a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Link Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Rust-text VIEW → link.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">VIEW <span class=\"ds-arrow\">→</span></a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; color: var(--brand-text, #8f2c08); text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: background-color 150ms; } .ds-btn-ghost:hover { background: var(--surface-300, #b9b8b2); } .ds-btn-ghost .ds-arrow { transition: transform 150ms; } .ds-btn-ghost:hover .ds-arrow { transform: translateX(4px); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--ink, #16181a); outline-offset: 2px; }"
+    },
+    {
+      "name": "Status Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Mono tag; ok tone carries a square marker.",
+      "html": "<span class=\"ds-tag\">REACT</span> <span class=\"ds-tag ds-tag-ok\">LIVE</span> <span class=\"ds-tag ds-tag-hazard\">DEV</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border: 1px solid var(--ink-muted, #464a4e); color: var(--ink-muted, #464a4e); font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; } .ds-tag-ok { border-color: var(--patina, #2f7f74); color: var(--ink, #16181a); } .ds-tag-ok::before { content: ''; width: 6px; height: 6px; background: var(--patina, #2f7f74); } .ds-tag-hazard { border-color: var(--hazard, #f2c200); background: var(--hazard, #f2c200); color: var(--on-accent, #16181a); }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Ruled plate with corner brackets and a mono header.",
+      "html": "<section class=\"ds-panel\"><span class=\"ds-c ds-tl\"></span><span class=\"ds-c ds-tr\"></span><span class=\"ds-c ds-bl\"></span><span class=\"ds-c ds-br\"></span><header class=\"ds-panel-h\"><span>01 // PROFILE</span><span class=\"ds-meta\">SEC.01 ACTIVE</span></header><div class=\"ds-panel-b\">Full-stack engineer.</div></section>",
+      "css": ".ds-panel { position: relative; background: var(--surface-200, #cbcac5); color: var(--ink, #16181a); border: 1px solid var(--hairline, #8d9093); font-family: 'Barlow', sans-serif; } .ds-c { position: absolute; width: 12px; height: 12px; border: 0 solid var(--ink, #16181a); pointer-events: none; } .ds-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; } .ds-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; } .ds-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; } .ds-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; } .ds-panel-h { display: flex; justify-content: space-between; gap: 16px; padding: 8px 16px; border-bottom: 1px solid var(--hairline, #8d9093); font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; } .ds-meta { color: var(--ink-muted, #464a4e); font-weight: 400; } .ds-panel-b { padding: 16px; font-size: 15px; line-height: 22px; }"
+    },
+    {
+      "name": "Readout",
+      "kind": "custom",
+      "description": "Mono instrument value over a ruler-tick strip.",
+      "html": "<div class=\"ds-readout\"><span class=\"ds-r-l\">LAT</span><span class=\"ds-r-v\">37.7988<span class=\"ds-r-u\">°N</span></span><span class=\"ds-r-t\"></span></div>",
+      "css": ".ds-readout { display: inline-flex; flex-direction: column; gap: 4px; min-width: 152px; color: var(--ink, #16181a); } .ds-r-l { color: var(--ink-muted, #464a4e); font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; } .ds-r-v { font-family: 'IBM Plex Mono', monospace; font-size: 32px; line-height: 32px; font-weight: 500; font-variant-numeric: tabular-nums; } .ds-r-u { margin-left: 4px; color: var(--ink-muted, #464a4e); font-size: 13px; font-weight: 400; } .ds-r-t { display: block; height: 8px; margin-top: 4px; background: repeating-linear-gradient(90deg, var(--ink-muted, #464a4e) 0 1px, transparent 1px 8px); }"
+    },
+    {
+      "name": "Nav Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Gunmetal plate with indexed mono links and theme switch.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">01 ABOUT</a><a href=\"#\">02 PROJECTS</a><span class=\"ds-nav-t\">T+00:01:12</span><span class=\"ds-seg\"><button aria-pressed=\"true\">CONCRETE</button><button>FOUNDRY</button></span></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 24px; padding: 12px 24px; background: var(--gunmetal, #2c3338); color: var(--on-gunmetal, #d9d8d4); font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; } .ds-nav a { color: inherit; text-decoration: none; } .ds-nav a:hover { color: var(--brand-text, #ff8a57); } .ds-nav-t { margin-left: auto; opacity: 0.8; font-variant-numeric: tabular-nums; } .ds-seg { display: flex; border: 1px solid rgba(217,216,212,0.6); } .ds-seg button { padding: 4px 8px; background: transparent; color: inherit; border: 0; font: inherit; font-size: 11px; cursor: pointer; } .ds-seg button[aria-pressed=true] { background: var(--on-gunmetal, #d9d8d4); color: var(--gunmetal, #2c3338); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Field Instrument",
+    "overview": "The site reads as a ruggedized piece of survey and telemetry gear. Every mark looks like it measures something: coordinates, local time, elapsed mission time, build number, project status. Panels are ruled plates with corner brackets, values sit over ruler-tick strips, and the hero is backed by graph paper with a radar sweep. Two themes share one token set: Concrete (light) and Foundry (dark), each carrying exactly one safety-orange signal per view.",
+    "keyCharacteristics": [
+      "Square steel geometry; the single flourish is an 8px chamfer.",
+      "Mono uppercase labels everywhere data lives; condensed display type for names and titles.",
+      "One brand fill per view; status colors always paired with a word or marker.",
+      "Flat surfaces separated by hairlines and corner brackets.",
+      "Mechanical, wipe-and-tick motion; glitch is opt-in and visitor-controlled."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Safety orange fills one thing per view. A second orange fill means the first one stops meaning anything.", "section": "colors" },
+      { "name": "The Word-With-Color Rule", "body": "Hazard, patina and signal-red never carry meaning alone; pair each with a word or a square marker.", "section": "colors" },
+      { "name": "The Mono-Means-Data Rule", "body": "If it's a value, a status, a code, or a control, it's set in IBM Plex Mono uppercase. Prose stays in Barlow.", "section": "typography" },
+      { "name": "The Plate Steel Rule", "body": "Layers are separated by rules and brackets, never by shadow. If something needs to lift, give it a surface step and a border.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep safety orange to one fill per view; use rust text for orange words.",
+      "Do set labels, values, statuses and controls in IBM Plex Mono uppercase at 0.08em tracking.",
+      "Do separate layers with hairlines, corner brackets, and surface steps.",
+      "Do keep the terminal voice in labels (STATUS //, PRJ_00, SEC.01 ACTIVE).",
+      "Do make motion mechanical: clip-path wipes, ticks, typed text; respect reduced motion."
+    ],
+    "donts": [
+      "Don't add shadows, gradients, or glows.",
+      "Don't round corners past 4px, or use pills.",
+      "Don't show status with color alone.",
+      "Don't use real military insignia or loaded emblems as ornament; stick to neutral instrument forms.",
+      "Don't reference primitive tokens (--ni-*) in components; use the semantic tokens."
+    ]
+  }
+}
