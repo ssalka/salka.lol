@@ -34,8 +34,8 @@ const PROJECTS: Project[] = [
   {
     name: 'RESOLUTE',
     description:
-      'Your issue tracker as a dependency graph: see what blocks what, and what to work on next.',
-    tags: ['Linear', 'Jira', 'MCP'],
+      'A map for navigating your work: where you are going, how to get there, and what you can start now.',
+    tags: ['Issue tracking', 'Agents', 'Dependency graphs'],
     href: 'https://resolute.fyi',
     linkLabel: 'Visit resolute.fyi',
     status: 'DEV',
